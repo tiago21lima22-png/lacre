@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Etiquetas - Mercado Livre Logística</title>
+<!-- Bibliotecas para gerar QR Code, Imagens e ZIP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+:root {
+  --ml-yellow: #FFE600;
+  --ml-navy: #2d3277;
+  --ml-green: #00A650;
+  --ml-dark: #1A1A2E;
+  --primary-color: #2d3277;
+  --bg-color: #FFE600;
+  --panel-bg: #ffffff;
+  --border-color: #e5e7eb;
+  --text-color: #333333;
+  --label-width: 400px;
+  --label-height: 600px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(160deg, #FFE600 0%, #ffd000 60%, #ffb800 100%);
+  background-attachment: fixed;
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 32px 16px;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+
+/* =============================================
+   CONTROL PANEL
+============================================= */
+.control-panel {
+  background-color: var(--panel-bg);
+  border: 2px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
+  padding: 0;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.panel-header {
+  background: var(--ml-yellow);
+  border-bottom: 3px solid rgba(0,0,0,0.1);
+  padding: 22px 24px 18px;
+  text-align: center;
+}
+
+.ml-logo {
+  width: 170px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 10px auto;
+  display: block;
+  object-fit: contain;
+}
+
+.panel-header h2 {
+  font-size: 0.85rem;
+  color: #333;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.panel-body { padding: 20px 22px; }
+
+/* STEPS */
+.step-block { margin-bottom: 20px; }
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ml-navy);
+  color: var(--ml-yellow);
+  font-size: 0.75rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(45,50,119,0.3);
+}
+
+.step-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--ml-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.step-divider {
+  border: none;
+  border-top: 1px dashed #d1d5db;
+  margin: 20px 0;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.or-divider span {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* DETECT SECTION */
+.detect-section {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  border: 1px solid #c7d2fe;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+#paste-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  border: 1px solid #a5b4fc;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #1f2937;
+  background-color: #ffffff;
+  resize: vertical;
+  transition: border 0.2s;
+  font-weight: 500;
+}
+
+#paste-input:focus {
+  outline: none;
+  border-color: var(--ml-navy);
+  box-shadow: 0 0 0 3px rgba(255,230,0,0.35);
+}
+
+#paste-input::placeholder { color: #a5b4fc; font-style: italic; }
+
+.btn-detect {
+  width: 100%;
+  margin-top: 10px;
+  background: linear-gradient(135deg, var(--ml-navy), #4f46e5);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-detect:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45,50,119,0.3);
+}
+
+.detect-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.detect-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.detect-badge.found { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.detect-badge.not-found { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+/* FORM FIELDS */
+.form-group { margin-bottom: 12px; }
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.label-icon { font-size: 0.9rem; }
+
+input, textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1f2937;
+  transition: all 0.2s;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fafafa;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--ml-navy);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255,230,0,0.35);
+}
+
+textarea { resize: vertical; min-height: 50px; }
+
+.help-text {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* BUTTONS */
+.button-group { display: flex; flex-direction: column; gap: 8px; }
+
+button {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.btn-print {
+  background: linear-gradient(135deg, #00a650, #009944);
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 15px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,166,80,0.3);
+}
+
+.btn-print:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,166,80,0.4);
+}
+
+.btn-print:active { transform: translateY(0); }
+
+.btn-primary {
+  background-color: var(--ml-yellow);
+  color: var(--ml-navy);
+  border: 1.5px solid #e6ce00;
+  font-weight: 800;
+}
+.btn-primary:hover {
+  background-color: #ffe000;
+  box-shadow: 0 4px 12px rgba(255,230,0,0.4);
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: var(--ml-navy);
+  border: 1.5px solid #c7d2fe;
+  font-weight: 700;
+}
+.btn-secondary:hover { background-color: #eef2ff; }
+
+.btn-clear-sm {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1.5px solid #fed7aa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  width: auto;
+  padding: 0 14px;
+}
+
+.btn-clear-sm:hover { background-color: #ffedd5; border-color: #fb923c; }
+
+.btn-secondary-row { display: flex; gap: 8px; }
+.btn-secondary-row button { flex: 1; font-size: 0.78rem; padding: 9px 8px; }
+
+/* =============================================
+   PREVIEW AREA
+============================================= */
+.preview-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.preview-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--ml-navy);
+  letter-spacing: 2px;
+  background-color: rgba(255,255,255,0.95);
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 2px solid rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.thermal-label {
+  width: var(--label-width);
+  height: var(--label-height);
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+  position: relative;
+  color: #000000;
+}
+
+.doca-container {
+  text-align: center;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 6px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.doca-title { font-size: 0.85rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+.doca-value { font-size: 4rem; font-weight: 900; line-height: 1; margin-top: 2px; }
+
+.field-box { margin-bottom: 6px; }
+
+.field-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000;
+  margin-bottom: 2px;
+}
+
+.value-canalizacao {
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-family: 'Arial', Helvetica, sans-serif;
+  text-transform: uppercase;
+  border: 3px solid #000;
+  border-radius: 12px;
+  padding: 2px 16px;
+  display: inline-block;
+  background-color: #f9f9f9;
+  letter-spacing: 1px;
+}
+
+.value-motorista {
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: 'Courier New', Courier, monospace;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.lacre-qr-box {
+  margin-top: auto;
+  flex: 1;
+  border: 3px dashed #000;
+  border-radius: 8px;
+  padding: 6px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.value-lacres {
+  font-size: 1.2rem;
+  font-weight: 900;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.1;
+  word-break: break-all;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+#qrcode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* =============================================
+   HISTORY PANEL
+============================================= */
+.history-panel {
+  background-color: var(--panel-bg);
+  border: 2px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
+  padding: 0;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--ml-yellow);
+  border-bottom: 3px solid rgba(0,0,0,0.1);
+  padding: 14px 18px;
+}
+
+.history-header h3 { font-size: 1rem; color: var(--ml-navy); font-weight: 900; letter-spacing: 0.5px; }
+
+.btn-clear-history {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  color: #ef4444;
+  width: auto;
+}
+.btn-clear-history:hover { background-color: rgba(239,68,68,0.1); }
+
+.history-list-wrapper { padding: 14px; }
+
+.history-list { display: flex; flex-direction: column; gap: 10px; }
+
+.history-item {
+  background-color: #f9fafb;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-item:hover {
+  border-color: var(--ml-yellow);
+  background-color: #fffce0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255,230,0,0.25);
+}
+
+.history-item-top { display: flex; justify-content: space-between; align-items: center; }
+
+.history-item-doca {
+  background-color: var(--ml-navy);
+  color: var(--ml-yellow);
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.history-item-time { font-size: 0.7rem; color: #9ca3af; font-weight: 600; }
+
+.history-item-motorista {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-item-details { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
+.history-item-canal { font-size: 0.8rem; font-weight: 700; color: #4b5563; }
+
+.btn-item-print {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  color: var(--ml-navy);
+  font-size: 1rem;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.btn-item-print:hover { background-color: #e0e7ff; }
+
+.history-empty {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  padding: 20px 0;
+  font-style: italic;
+}
+
+/* =============================================
+   TOAST NOTIFICATIONS
+============================================= */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background-color: #ffffff;
+  border-left: 5px solid var(--ml-navy);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 14px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 420px;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+}
+
+.toast.show { transform: translateX(0); opacity: 1; }
+.toast-icon { font-size: 1.25rem; display: flex; align-items: center; justify-content: center; }
+.toast-message { font-size: 0.9rem; font-weight: 700; color: #1f2937; flex-grow: 1; }
+.toast-close { background: none; border: none; cursor: pointer; font-size: 1rem; color: #9ca3af; padding: 0; width: auto; display: flex; align-items: center; }
+.toast-close:hover { color: #4b5563; }
+.toast-success { border-left-color: #00a650; }
+.toast-info    { border-left-color: #3483fa; }
+.toast-warning { border-left-color: #ff9f43; }
+.toast-error   { border-left-color: #f23d4f; }
+
+/* =============================================
+   PRINT RULES — ZEBRA / TÉRMICA
+============================================= */
+@media print {
+  @page { size: 100mm 150mm; margin: 0mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { background-color: white !important; margin: 0 !important; padding: 0 !important; display: block !important; }
+  .control-panel, .history-panel, .preview-title, .toast-container { display: none !important; }
+  .preview-area { display: block !important; gap: 0 !important; padding: 0 !important; margin: 0 !important; }
+  .thermal-label {
+    width: 100vw !important;
+    height: 100vh !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 3mm !important;
+    box-sizing: border-box !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PAINEL ESQUERDO: FORMULÁRIO ===== -->
+<div class="control-panel">
+  <div class="panel-header">
+    <img src="https://http2.mlstatic.com/D_NQ_NP_790091-MLA74840999430_032024-F.jpg"
+         alt="Mercado Livre" class="ml-logo">
+    <h2>Operação Logística</h2>
+  </div>
+
+  <div class="panel-body">
+
+    <!-- PASSO 1: AUTO-DETECTAR -->
+    <div class="step-block">
+      <div class="step-header">
+        <div class="step-badge">1</div>
+        <span class="step-title">Cole o texto do sistema</span>
+      </div>
+      <div class="detect-section">
+        <textarea id="paste-input"
+          placeholder="Cole aqui a mensagem com os dados do caminhão (WhatsApp, e-mail, sistema)..."></textarea>
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <button class="btn-detect" onclick="detectFromText()" style="flex: 1; margin-top: 0;">
+            <span>⚡</span> Detectar e Preencher
+          </button>
+          <button class="btn-clear-sm" onclick="clearPasteInput()" title="Apagar texto colado" style="margin-top: 0; padding: 0 12px; white-space: nowrap;">
+            <span>🗑️</span> Apagar
+          </button>
+        </div>
+        <div class="detect-results" id="detect-results"></div>
+      </div>
+    </div>
+
+    <div class="or-divider"><span>ou preencha manualmente</span></div>
+
+    <!-- PASSO 2: CAMPOS MANUAIS -->
+    <div class="step-block">
+      <div class="step-header">
+        <div class="step-badge">2</div>
+        <span class="step-title">Confirme os dados</span>
+      </div>
+
+      <div class="form-group">
+        <label for="input-doca"><span class="label-icon">🏭</span> Doca de Carregamento</label>
+        <input type="text" id="input-doca" value="122" maxlength="4"
+               oninput="updateLabel()" placeholder="Ex: 122">
+      </div>
+
+      <div class="form-group">
+        <label for="input-canalizacao"><span class="label-icon">📍</span> Canalização</label>
+        <input type="text" id="input-canalizacao" value="222222"
+               oninput="updateLabel()" placeholder="Ex: SSP21 ou 222222">
+      </div>
+
+      <div class="form-group">
+        <label for="input-motorista"><span class="label-icon">👤</span> Nome do Motorista</label>
+        <input type="text" id="input-motorista" value="MOT-5592"
+               oninput="updateLabel()" placeholder="Nome completo">
+      </div>
+
+      <div class="form-group">
+        <label for="input-lacre"><span class="label-icon">🔒</span> Número(s) dos Lacres</label>
+        <textarea id="input-lacre" rows="2" oninput="updateLabel()">444444444 / 444444</textarea>
+        <div class="help-text">💡 Separe os lacres com barra ( / ) ou vírgula. O QR Code salva todos.</div>
+      </div>
+    </div>
+
+    <hr class="step-divider">
+
+    <!-- PASSO 3: AÇÕES -->
+    <div class="step-block" style="margin-bottom: 0;">
+      <div class="step-header">
+        <div class="step-badge">3</div>
+        <span class="step-title">Imprimir ou exportar</span>
+      </div>
+
+      <div class="button-group">
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-print" onclick="printLabel()" id="btn-imprimir"
+                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span>🖨️</span> Imprimir Etiqueta
+          </button>
+          <button class="btn-clear-sm" onclick="clearForm()" title="Limpar tudo para o próximo caminhão">
+            🧹 Limpar
+          </button>
+        </div>
+        <div class="btn-secondary-row">
+          <button class="btn-primary" onclick="downloadLabel()"
+                  style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <span>📥</span> Baixar PNG
+          </button>
+          <button class="btn-secondary" onclick="exportBatchZip()"
+                  style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <span>📦</span> Exportar ZIP
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== CENTRO: PRÉ-VISUALIZAÇÃO ===== -->
+<div class="preview-area">
+  <div class="preview-title">📄 Pré-visualização da Etiqueta (10x15 cm)</div>
+
+  <div class="thermal-label" id="label-container">
+
+    <div class="doca-container">
+      <div class="doca-title">DOCA DE CARREGAMENTO</div>
+      <div class="doca-value" id="lbl-doca">122</div>
+    </div>
+
+    <div class="field-box">
+      <div class="field-title">CANALIZAÇÃO</div>
+      <div class="value-canalizacao" id="lbl-canalizacao">222222</div>
+    </div>
+
+    <div class="field-box">
+      <div class="field-title">NOME DO MOTORISTA</div>
+      <div class="value-motorista" id="lbl-motorista">MOT-5592</div>
+    </div>
+
+    <div class="lacre-qr-box">
+      <div style="width: 100%; text-align: center;">
+        <div class="field-title">LACRES DE SEGURANÇA</div>
+        <div class="value-lacres" id="lbl-lacre">444444444 / 444444</div>
+      </div>
+      <div id="qrcode"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PAINEL DIREITO: HISTÓRICO ===== -->
+<div class="history-panel">
+  <div class="history-header">
+    <h3>🔄 Histórico Recente</h3>
+    <button class="btn-clear-history" onclick="clearHistory()" title="Limpar Histórico">🗑️</button>
+  </div>
+  <div class="history-list-wrapper">
+    <div style="position: relative; margin-bottom: 12px;">
+      <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: #9ca3af; pointer-events: none;">🔍</span>
+      <input type="text" id="history-search" placeholder="Buscar no histórico..." oninput="filterHistory()"
+             style="font-size: 0.8rem; padding: 8px 12px 8px 30px; border-radius: 8px; border: 1.5px solid var(--border-color); font-weight: 600; background: #fafafa; width: 100%; box-sizing: border-box;">
+    </div>
+    <div id="history-list" class="history-list"></div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script>
+  let qrCodeInstance = null;
+  const HISTORY_KEY = 'ml_etiquetas_historico';
+
+  window.onload = () => {
+    try {
+      updateLabel();
+      loadHistory();
+    } catch (e) {
+      console.error("Erro ao iniciar a etiqueta:", e);
+    }
+  };
+
+  function sanitizeFileName(name) {
+    return name.replace(/[^a-zA-Z0-9_-]/g, '_').toUpperCase();
+  }
+
+  function updateLabel() {
+    const doca = document.getElementById('input-doca').value || '-';
+    const canalizacao = document.getElementById('input-canalizacao').value || '-';
+    const motorista = document.getElementById('input-motorista').value || '-';
+    
+    const rawLacres = document.getElementById('input-lacre').value;
+    const lacresArray = rawLacres.split(/[\/,\n]+/).map(s => s.trim()).filter(s => s !== '');
+    
+    let visibleLacres = 'N/A';
+    if (lacresArray.length > 0) {
+      visibleLacres = lacresArray.slice(0, 2).join(' / ');
+    }
+
+    const qrData = lacresArray.length > 0 ? lacresArray.join(',') : 'N/A';
+
+    document.getElementById('lbl-doca').textContent = doca;
+    document.getElementById('lbl-canalizacao').textContent = canalizacao;
+    document.getElementById('lbl-lacre').textContent = visibleLacres;
+    document.getElementById('lbl-motorista').textContent = motorista;
+
+    generateQRCode(qrData);
+  }
+
+  // DETECTOR INTELIGENTE DE TEXTO
+  function detectFromText() {
+    const text = document.getElementById('paste-input').value;
+    if (!text.trim()) {
+      showToast('Cole um texto antes de detectar!', 'warning');
+      return;
+    }
+
+    const fullText = text;
+    let found = { doca: false, canalizacao: false, motorista: false, lacre: false };
+
+    // --- DOCA ---
+    const docaMatch = fullText.match(/\b(?:doca|dock|d\.?o\.?c\.?a\.?)\s*[:\-–]?\s*(\d{1,4})\b/i);
+    if (docaMatch) {
+      document.getElementById('input-doca').value = docaMatch[1].trim();
+      found.doca = true;
+    }
+
+    // --- CANALIZAÇÃO: pega o valor EXATO que aparece no texto ---
+    const canalMatch = fullText.match(/\b(?:canaliza[çc][aã]o|canaliza[çc]ao|canal)\s*[:\-–]?\s*([A-Z0-9\-\/\.]+)/i);
+    if (canalMatch) {
+      document.getElementById('input-canalizacao').value = canalMatch[1].trim();
+      found.canalizacao = true;
+    }
+
+    // --- MOTORISTA ---
+    const motoristaPatterns = [
+      /\b(?:nome\s+do\s+motorista)\s*[:\-–]?\s*([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s]{2,50}?)(?:[,;]|\s{2,}|\n|\r|$)/i,
+      /\b(?:motorista|condutor)\s*[:\-–]?\s*([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s]{2,50}?)(?:[,;]|\s{2,}|\n|\r|$)/i,
+    ];
+    let motoristaMatch = null;
+    for (const pat of motoristaPatterns) {
+      motoristaMatch = fullText.match(pat);
+      if (motoristaMatch) break;
+    }
+    if (motoristaMatch) {
+      const rawName = motoristaMatch[1].trim();
+      const nameParts = rawName.split(/\s+/).filter(s => s !== '');
+      let cleanName = '';
+      if (nameParts.length > 2) {
+        const secondWord = nameParts[1].toLowerCase();
+        const prepositions = ['de', 'da', 'do', 'dos', 'das', 'e'];
+        if (prepositions.includes(secondWord)) {
+          cleanName = nameParts.slice(0, 3).join(' ');
+        } else {
+          cleanName = nameParts.slice(0, 2).join(' ');
+        }
+      } else {
+        cleanName = nameParts.join(' ');
+      }
+      document.getElementById('input-motorista').value = cleanName;
+      found.motorista = true;
+    }
+
+    // --- LACRES ---
+    const lacreKeywordMatch = fullText.match(/\b(?:lacres?|seal|l\.?a\.?c\.?r\.?e)\s*[:\-–]?\s*([\d\s\/\-,]+)/i);
+    if (lacreKeywordMatch) {
+      const lacreNums = lacreKeywordMatch[1].trim().match(/\d{4,}/g);
+      if (lacreNums && lacreNums.length > 0) {
+        document.getElementById('input-lacre').value = lacreNums.join(' / ');
+        found.lacre = true;
+      }
+    }
+
+    if (!found.lacre) {
+      const allLongNumbers = fullText.match(/\b\d{6,}\b/g);
+      if (allLongNumbers && allLongNumbers.length > 0) {
+        document.getElementById('input-lacre').value = allLongNumbers.slice(0, 4).join(' / ');
+        found.lacre = true;
+      }
+    }
+
+    updateLabel();
+
+    const resultsDiv = document.getElementById('detect-results');
+    const labels = {
+      doca: { label: 'Doca', icon: '🏭' },
+      canalizacao: { label: 'Canalização', icon: '📍' },
+      motorista: { label: 'Motorista', icon: '👤' },
+      lacre: { label: 'Lacres', icon: '🔒' }
+    };
+
+    resultsDiv.innerHTML = '';
+    let foundCount = 0;
+    Object.keys(found).forEach(key => {
+      const badge = document.createElement('div');
+      badge.className = `detect-badge ${found[key] ? 'found' : 'not-found'}`;
+      badge.innerHTML = `${labels[key].icon} ${found[key] ? '✓' : '✗'} ${labels[key].label}`;
+      resultsDiv.appendChild(badge);
+      if (found[key]) foundCount++;
+    });
+
+    if (foundCount === 0) {
+      showToast('Nenhum dado encontrado. Verifique o formato!', 'error');
+    } else if (foundCount < 4) {
+      showToast(`${foundCount} de 4 campos detectados. Verifique os itens em vermelho.`, 'warning');
+    } else {
+      showToast('Todos os campos detectados com sucesso! ✅', 'success');
+    }
+  }
+
+  function generateQRCode(text) {
+    const qrContainer = document.getElementById('qrcode');
+    qrContainer.innerHTML = '';
+    qrCodeInstance = new QRCode(qrContainer, {
+      text: text,
+      width: 170,
+      height: 170,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+
+  // Toast System
+  function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+
+    let icon = 'ℹ️';
+    if (type === 'success') icon = '✅';
+    if (type === 'error') icon = '❌';
+    if (type === 'warning') icon = '⚠️';
+
+    toast.innerHTML = `
+      <div class="toast-icon">${icon}</div>
+      <div class="toast-message">${message}</div>
+      <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+    `;
+
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // Clear Form
+  function clearForm() {
+    document.getElementById('input-doca').value = '';
+    document.getElementById('input-canalizacao').value = '';
+    document.getElementById('input-motorista').value = '';
+    document.getElementById('input-lacre').value = '';
+    document.getElementById('paste-input').value = '';
+    document.getElementById('detect-results').innerHTML = '';
+    updateLabel();
+    document.getElementById('input-doca').focus();
+    showToast('Campos limpos. Pronto para o próximo caminhão!', 'info');
+  }
+
+  // Clear Paste Input
+  function clearPasteInput() {
+    document.getElementById('paste-input').value = '';
+    document.getElementById('detect-results').innerHTML = '';
+    document.getElementById('paste-input').focus();
+    showToast('Texto colado apagado!', 'info');
+  }
+
+  // History
+  function saveToHistory() {
+    const doca = document.getElementById('input-doca').value.trim();
+    const canalizacao = document.getElementById('input-canalizacao').value.trim();
+    const motorista = document.getElementById('input-motorista').value.trim();
+    const lacre = document.getElementById('input-lacre').value.trim();
+
+    if (!doca && !canalizacao && !motorista && !lacre) return;
+
+    let history = [];
+    try { history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { history = []; }
+
+    const newItem = {
+      doca, canalizacao, motorista, lacre,
+      timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    };
+
+    if (history.length > 0) {
+      const last = history[0];
+      if (last.doca === newItem.doca && last.canalizacao === newItem.canalizacao &&
+          last.motorista === newItem.motorista && last.lacre === newItem.lacre) return;
+    }
+
+    history.unshift(newItem);
+    if (history.length > 5) history = history.slice(0, 5);
+
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    renderHistory();
+  }
+
+  function loadHistory() { renderHistory(); }
+
+  function renderHistory() {
+    const listElement = document.getElementById('history-list');
+    if (!listElement) return;
+
+    let history = [];
+    try { history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { history = []; }
+
+    if (history.length === 0) {
+      listElement.innerHTML = '<div class="history-empty">Nenhuma etiqueta recente.</div>';
+      return;
+    }
+
+    listElement.innerHTML = '';
+    history.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'history-item';
+      div.onclick = (e) => {
+        if (e.target.closest('.btn-item-print')) return;
+        loadHistoryItem(index);
+      };
+
+      div.innerHTML = `
+        <div class="history-item-top">
+          <span class="history-item-doca">DOCA ${item.doca || '-'}</span>
+          <span class="history-item-time">${item.timestamp}</span>
+        </div>
+        <div class="history-item-motorista" title="${item.motorista || '-'}">${item.motorista || '-'}</div>
+        <div class="history-item-details">
+          <span class="history-item-canal">Canal: ${item.canalizacao || '-'}</span>
+          <button class="btn-item-print" title="Reimprimir Etiqueta" onclick="reprintHistoryItem(event, ${index})">
+            🖨️
+          </button>
+        </div>
+      `;
+      listElement.appendChild(div);
+    });
+
+    filterHistory();
+  }
+
+  function loadHistoryItem(index) {
+    let history = [];
+    try { history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { return; }
+
+    const item = history[index];
+    if (!item) return;
+
+    document.getElementById('input-doca').value = item.doca;
+    document.getElementById('input-canalizacao').value = item.canalizacao;
+    document.getElementById('input-motorista').value = item.motorista;
+    document.getElementById('input-lacre').value = item.lacre;
+
+    updateLabel();
+    showToast('Etiqueta carregada do histórico!', 'success');
+  }
+
+  function reprintHistoryItem(event, index) {
+    event.stopPropagation();
+    loadHistoryItem(index);
+    setTimeout(() => printLabel(), 100);
+  }
+
+  function clearHistory() {
+    localStorage.removeItem(HISTORY_KEY);
+    const searchInput = document.getElementById('history-search');
+    if (searchInput) searchInput.value = '';
+    renderHistory();
+    showToast('Histórico limpo com sucesso!', 'info');
+  }
+
+  function filterHistory() {
+    const searchInput = document.getElementById('history-search');
+    if (!searchInput) return;
+    const query = searchInput.value.toLowerCase().trim();
+    const items = document.querySelectorAll('.history-item');
+    let hasVisibleItems = false;
+
+    items.forEach(item => {
+      const doca = item.querySelector('.history-item-doca').textContent.toLowerCase();
+      const motorista = item.querySelector('.history-item-motorista').textContent.toLowerCase();
+      const canal = item.querySelector('.history-item-canal').textContent.toLowerCase();
+
+      if (doca.includes(query) || motorista.includes(query) || canal.includes(query)) {
+        item.style.display = 'flex';
+        hasVisibleItems = true;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    let emptyMsg = document.getElementById('history-filter-empty');
+    if (!hasVisibleItems && items.length > 0) {
+      if (!emptyMsg) {
+        emptyMsg = document.createElement('div');
+        emptyMsg.id = 'history-filter-empty';
+        emptyMsg.className = 'history-empty';
+        emptyMsg.textContent = 'Nenhum resultado encontrado.';
+        document.getElementById('history-list').appendChild(emptyMsg);
+      }
+    } else {
+      if (emptyMsg) {
+        emptyMsg.remove();
+      }
+    }
+  }
+
+  function printLabel() {
+    saveToHistory();
+    window.print();
+  }
+
+  async function downloadLabel() {
+    const labelElement = document.getElementById('label-container');
+    let canalizacao = document.getElementById('input-canalizacao').value.trim() || 'SEM_CANALIZACAO';
+    canalizacao = sanitizeFileName(canalizacao);
+    saveToHistory();
+    try {
+      const canvas = await html2canvas(labelElement, { scale: 4, backgroundColor: "#ffffff", logging: false });
+      canvas.toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ETIQUETA_ML_${canalizacao}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Etiqueta baixada com sucesso!', 'success');
+      }, 'image/png');
+    } catch (error) {
+      showToast("Ocorreu um erro ao gerar a imagem.", "error");
+    }
+  }
+
+  async function exportBatchZip() {
+    const zip = new JSZip();
+    let canalizacao = document.getElementById('input-canalizacao').value.trim() || 'SEM_CANALIZACAO';
+    canalizacao = sanitizeFileName(canalizacao);
+    const folder = zip.folder(canalizacao);
+    const btn = document.querySelector('.btn-secondary');
+    const originalBtnText = btn.innerHTML;
+    btn.innerHTML = "A gerar ZIP...";
+    btn.disabled = true;
+    saveToHistory();
+    try {
+      const labelElement = document.getElementById('label-container');
+      const canvas = await html2canvas(labelElement, { scale: 4, backgroundColor: "#ffffff" });
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      folder.file(`${canalizacao}.png`, blob);
+      const zipBlob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${canalizacao}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Lote ZIP exportado com sucesso!', 'success');
+    } catch (error) {
+      showToast("Falha ao exportar lote.", "error");
+    } finally {
+      btn.innerHTML = originalBtnText;
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
