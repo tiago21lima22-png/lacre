@@ -1,0 +1,62 @@
+// ============================================================
+// Regras de segurança do Firestore — Painel de Despacho de Docas
+//
+// Como aplicar:
+// 1. Console Firebase > Firestore Database > aba "Regras"
+// 2. Cole todo o conteúdo deste arquivo, substituindo o que já existe
+// 3. Clique em "Publicar"
+//
+// O que elas garantem:
+// - Cada operador só lê/edita as próprias docas, chamados e alterações
+// - Administradores (role: "admin" em controleCarga_users) leem tudo
+// - Só administradores podem atualizar o status de um chamado
+// - Ninguém consegue se promover a admin sozinho pelo app
+// ============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function logado() {
+      return request.auth != null;
+    }
+
+    function ehAdmin() {
+      return logado() &&
+        get(/databases/$(database)/documents/controleCarga_users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Perfis de usuário
+    match /controleCarga_users/{uid} {
+      allow read: if logado() && (request.auth.uid == uid || ehAdmin());
+      allow create: if logado() && request.auth.uid == uid && request.resource.data.role == 'user';
+      // Usuário pode atualizar o próprio perfil, mas não o próprio "role"
+      allow update: if logado() && request.auth.uid == uid &&
+        request.resource.data.role == resource.data.role;
+      // Só um admin pode promover/alterar o "role" de outra pessoa
+      allow update: if ehAdmin();
+    }
+
+    // Docas cadastradas pelos operadores
+    match /controleCarga_docas/{docaId} {
+      allow read: if logado() && (resource.data.donoUid == request.auth.uid || ehAdmin());
+      allow create: if logado() && request.resource.data.donoUid == request.auth.uid;
+      allow update, delete: if logado() && (resource.data.donoUid == request.auth.uid || ehAdmin());
+    }
+
+    // Chamados de emergência
+    match /controleCarga_chamados/{chamadoId} {
+      allow read: if logado() && (resource.data.donoUid == request.auth.uid || ehAdmin());
+      allow create: if logado() && request.resource.data.donoUid == request.auth.uid;
+      // Só admin pode mudar o status (atender/resolver)
+      allow update: if logado() && ehAdmin();
+    }
+
+    // Histórico de alterações (cadastros/edições/exclusões de doca
+    // feitas por operadores + atendimentos de chamado feitos por admins)
+    match /controleCarga_alteracoes/{alteracaoId} {
+      allow read: if logado() && (resource.data.autorUid == request.auth.uid || ehAdmin());
+      allow create: if logado() && request.resource.data.autorUid == request.auth.uid;
+    }
+  }
+}
