@@ -3,22 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Despacho — painel interno de gestão de docas e chamados de emergência para operação logística. Sistema de uso restrito a operadores autorizados.">
   <title>Despacho - Painel de Docas</title>
 
   <!-- Configuração e instruções de deploy: ver README.md -->
-
-  <!--
-    Verificação do Google Search Console (opcional, mas recomendado):
-    1. Crie a propriedade em https://search.google.com/search-console
-       usando exatamente a URL completa do seu GitHub Pages
-       (ex: https://seu-usuario.github.io/seu-repo/)
-    2. Escolha o método "Tag HTML"
-    3. O Google vai te dar uma linha parecida com:
-       meta name="google-site-verification" content="ALGUM_CODIGO_AQUI"
-    4. Substitua a linha logo abaixo por essa tag completa, sem comentário
-  -->
-  <!-- <meta name="google-site-verification" content="COLE_AQUI_O_CODIGO_DO_SEARCH_CONSOLE"> -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,22 +86,6 @@
 </head>
 <body>
   <div id="root"></div>
-
-  <!--
-    Rodapé de identificação do sistema.
-    Fica fora do app React de propósito: aparece no HTML puro da página,
-    visível mesmo para rastreadores que não executam JavaScript — ajuda
-    a diferenciar este site de um formulário de phishing genérico para
-    qualquer revisão automática ou manual do Google Safe Browsing.
-
-    EDITE o texto abaixo com seu nome/empresa e um contato real.
-  -->
-  <footer style="max-width:42rem;margin:0 auto;padding:18px 16px 28px;text-align:center;font:500 12px Inter, system-ui, sans-serif;color:#707CA0;border-top:1px solid #232B47;">
-    Despacho — sistema interno de gestão de docas e chamados de emergência.<br>
-    Operado por <strong style="color:#9CA6C4;">EDITE: Seu Nome ou Empresa</strong> ·
-    Contato: <strong style="color:#9CA6C4;">EDITE: seu@email.com</strong> ·
-    Acesso restrito a operadores autorizados.
-  </footer>
 
   <!-- Edite suas credenciais em js/firebase-config.js -->
   <script src="js/firebase-config.js"></script>
