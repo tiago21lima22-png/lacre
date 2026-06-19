@@ -16,6 +16,7 @@ index.html              página única do site (tema escuro + dourado)
 js/firebase-config.js   suas credenciais do Firebase (o único arquivo que você edita)
 js/app.js               toda a lógica do site, já compilada (não precisa editar)
 firestore.rules         regras de segurança para colar no Firebase
+robots.txt              sinaliza para rastreadores que o site é legítimo e aberto
 .nojekyll                avisa o GitHub Pages para não processar o site com Jekyll
 ```
 
@@ -73,6 +74,33 @@ nem servidor, funciona offline exceto pelas bibliotecas carregadas por CDN
 5. Salve. Em alguns minutos o GitHub mostra o link público (algo como `https://seu-usuario.github.io/nome-do-repo/`).
 
 Pronto — o site publicado já fala direto com o seu Firebase, sem precisar de mais nada.
+
+## Se o Chrome mostrar aviso de "site enganoso" / phishing
+
+Sites novos hospedados em `usuario.github.io` às vezes são marcados por
+engano pelo Google Safe Browsing — geralmente porque um formulário de
+e-mail/senha num domínio gratuito, sem identificação visível, se parece
+com o molde clássico de um kit de phishing.
+
+Para ajudar a evitar isso, o projeto já inclui:
+
+- **Um rodapé de identificação** em `index.html` (fora do app React, então
+  aparece no HTML puro da página, mesmo antes do JavaScript carregar).
+  **Edite as duas linhas marcadas com "EDITE:"** no final do `index.html`
+  com seu nome/empresa real e um contato — isso é o que diferencia o site
+  de um formulário anônimo de coleta de credenciais.
+- **`robots.txt`** na raiz, sinalizando que é um site legítimo e aberto a indexação.
+- **Meta description** explicando o propósito do site.
+- **Espaço pronto para a verificação do Google Search Console**: depois de
+  criar a propriedade em [search.google.com/search-console](https://search.google.com/search-console)
+  com a URL completa do seu GitHub Pages e escolher o método "Tag HTML",
+  cole a tag que o Google fornecer no lugar da linha comentada
+  `<!-- <meta name="google-site-verification" ... -->` no `<head>` do `index.html`.
+
+Depois de personalizar o rodapé e (se quiser) verificar no Search Console,
+acesse o relatório **Problemas de segurança** lá dentro e clique em
+**Solicitar análise**. Pode levar de 1 a alguns dias para o aviso sumir do
+Chrome para todos os visitantes, mesmo depois de aprovado.
 
 ## Se algo não funcionar
 
