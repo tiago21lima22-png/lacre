@@ -1,13 +1,13 @@
 /* ============================================================
    app.js — gerado automaticamente a partir do código-fonte React/JSX
-   do Painel de Despacho de Docas. Já vem compilado para JavaScript puro
+   do Painel Despacho de Docas. Já vem compilado para JavaScript puro
    (sem JSX, sem necessidade de Babel no navegador), pronto para rodar
    direto como arquivo estático — inclusive no GitHub Pages.
 
    Não precisa editar este arquivo. Para configurar o Firebase, edite
    js/firebase-config.js. Para mudanças de funcionalidade, peça ao Claude.
    ============================================================ */
-const { useState, useEffect } = React;
+const { useState, useEffect, useRef } = React;
 const Trash2 = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2M10 11v6M14 11v6" }));
 const User = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" }), /* @__PURE__ */ React.createElement("circle", { cx: "12", cy: "7", r: "4" }));
 const Package = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" }), /* @__PURE__ */ React.createElement("path", { d: "m3.3 7 8.7 5 8.7-5M12 22V12" }));
@@ -30,6 +30,10 @@ const Eye = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createEleme
 const EyeOff = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" }), /* @__PURE__ */ React.createElement("path", { d: "M14.084 14.158a3 3 0 0 1-4.242-4.242" }), /* @__PURE__ */ React.createElement("path", { d: "M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" }), /* @__PURE__ */ React.createElement("path", { d: "m2 2 20 20" }));
 const History = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" }), /* @__PURE__ */ React.createElement("path", { d: "M3 3v5h5" }), /* @__PURE__ */ React.createElement("path", { d: "M12 7v5l4 2" }));
 const Loader2 = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M21 12a9 9 0 1 1-6.219-8.56" }));
+const Pencil = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .622.622l4.353-1.32a2 2 0 0 0 .83-.497z" }), /* @__PURE__ */ React.createElement("path", { d: "m15 5 4 4" }));
+const XCircle = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("circle", { cx: "12", cy: "12", r: "10" }), /* @__PURE__ */ React.createElement("path", { d: "m15 9-6 6" }), /* @__PURE__ */ React.createElement("path", { d: "m9 9 6 6" }));
+const Plus = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M5 12h14" }), /* @__PURE__ */ React.createElement("path", { d: "M12 5v14" }));
+const X = ({ size = 24, className = "" }) => /* @__PURE__ */ React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className }, /* @__PURE__ */ React.createElement("path", { d: "M18 6 6 18" }), /* @__PURE__ */ React.createElement("path", { d: "m6 6 12 12" }));
 const firebaseConfigured = !!(firebaseConfig.apiKey && firebaseConfig.apiKey !== "SUA_API_KEY");
 let auth = null;
 let db = null;
@@ -65,9 +69,10 @@ function formatarData(iso) {
   }
 }
 function badgeChamado(status) {
-  if (status === "aberto") return { texto: "\u{1F6A8} Aberto", classe: "bg-red-100 text-red-700 border-red-300" };
-  if (status === "atendendo") return { texto: "\u{1F7E0} Em Atendimento", classe: "bg-amber-100 text-amber-700 border-amber-300" };
-  return { texto: "\u2705 Resolvido", classe: "bg-green-100 text-green-700 border-green-300" };
+  if (status === "aberto") return { texto: "Aberto", dot: "bg-[var(--red)]", classe: "bg-[var(--red-bg)] text-[var(--red)] border-[var(--red)]/30" };
+  if (status === "atendendo") return { texto: "Em Atendimento", dot: "bg-[var(--amber)]", classe: "bg-[var(--amber-bg)] text-[var(--amber)] border-[var(--amber)]/30" };
+  if (status === "cancelado") return { texto: "Cancelado", dot: "bg-[var(--text-faint)]", classe: "bg-white/5 text-[var(--text-faint)] border-[var(--border)]" };
+  return { texto: "Resolvido", dot: "bg-[var(--green)]", classe: "bg-[var(--green-bg)] text-[var(--green)] border-[var(--green)]/30" };
 }
 const CAMPOS_DOCA = [
   { campo: "numeroDoca", label: "N\xFAmero da Doca", icon: MapPin, tipo: "text" },
@@ -89,6 +94,16 @@ function diffCampos(antigo, novo) {
   });
   return mudancas;
 }
+function diffComResponsavel(antigo, novo) {
+  var _a, _b;
+  const mudancas = diffCampos(antigo, novo);
+  const respAntigo = ((_a = antigo.donoNome) != null ? _a : "").toString();
+  const respNovo = ((_b = novo.donoNome) != null ? _b : "").toString();
+  if (respAntigo !== respNovo) {
+    mudancas.push({ campo: "Respons\xE1vel", valorAnterior: respAntigo || "\u2014", valorNovo: respNovo || "\u2014" });
+  }
+  return mudancas;
+}
 async function registrarAlteracao(dados) {
   if (!db) return;
   try {
@@ -97,36 +112,60 @@ async function registrarAlteracao(dados) {
     console.error("Erro ao registrar altera\xE7\xE3o:", e);
   }
 }
+function tocarAlertaEmergencia() {
+  try {
+    const AudioContextClasse = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClasse) return;
+    const ctx = new AudioContextClasse();
+    const tempos = [0, 0.22, 0.44];
+    tempos.forEach((t) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "square";
+      osc.frequency.value = 880;
+      gain.gain.setValueAtTime(1e-4, ctx.currentTime + t);
+      gain.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(1e-4, ctx.currentTime + t + 0.18);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + t);
+      osc.stop(ctx.currentTime + t + 0.2);
+    });
+    setTimeout(() => ctx.close(), 900);
+  } catch (e) {
+    console.error("Erro ao tocar alerta sonoro:", e);
+  }
+}
 function ConfirmModal({ titulo, mensagem, textoConfirmar = "Confirmar", onConfirmar, onCancelar }) {
-  return /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-gray-100" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3 text-red-600 mb-4" }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 28 }), /* @__PURE__ */ React.createElement("h3", { className: "font-extrabold text-xl text-gray-950" }, titulo)), /* @__PURE__ */ React.createElement("p", { className: "text-gray-600 text-base mb-6 leading-relaxed" }, mensagem), /* @__PURE__ */ React.createElement("div", { className: "flex gap-3" }, /* @__PURE__ */ React.createElement("button", { onClick: onCancelar, className: "flex-grow py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-sm" }, "Cancelar"), /* @__PURE__ */ React.createElement("button", { onClick: onConfirmar, className: "flex-grow py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition-all text-sm shadow-md" }, textoConfirmar))));
+  return /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-[var(--border)]" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3 text-[var(--red)] mb-4" }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 26 }), /* @__PURE__ */ React.createElement("h3", { className: "font-display font-bold text-lg text-[var(--text)]" }, titulo)), /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-muted)] text-sm mb-6 leading-relaxed" }, mensagem), /* @__PURE__ */ React.createElement("div", { className: "flex gap-3" }, /* @__PURE__ */ React.createElement("button", { onClick: onCancelar, className: "flex-grow py-3 bg-[var(--surface-2)] text-[var(--text-muted)] font-semibold rounded-xl hover:bg-[var(--border)] transition-all text-sm border border-[var(--border)]" }, "Cancelar"), /* @__PURE__ */ React.createElement("button", { onClick: onConfirmar, className: "flex-grow py-3 bg-[var(--red)] text-white font-semibold rounded-xl hover:brightness-110 transition-all text-sm shadow-md" }, textoConfirmar))));
 }
 function EmergencyModal({ doca, onConfirm, onCancel, enviando }) {
   const motivos = ["Falta de paletes", "Equipamento com defeito", "Atraso na carga", "Risco de seguran\xE7a", "Outro"];
   const [motivo, setMotivo] = useState(motivos[0]);
   const [mensagem, setMensagem] = useState("");
-  return /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-red-100" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3 text-red-600 mb-4" }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 32 }), /* @__PURE__ */ React.createElement("h3", { className: "font-extrabold text-xl text-gray-950" }, "Abrir Chamado de Emerg\xEAncia")), /* @__PURE__ */ React.createElement("p", { className: "text-sm text-gray-600 mb-4" }, "Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, doca.numeroDoca), " \u2014 o chamado \xE9 enviado em tempo real para o administrador."), /* @__PURE__ */ React.createElement("label", { className: "block text-xs font-bold text-gray-500 mb-1" }, "Motivo"), /* @__PURE__ */ React.createElement("select", { className: "w-full border-2 border-gray-200 rounded-lg p-2 mb-3 outline-none", value: motivo, onChange: (e) => setMotivo(e.target.value) }, motivos.map((m) => /* @__PURE__ */ React.createElement("option", { key: m, value: m }, m))), /* @__PURE__ */ React.createElement("label", { className: "block text-xs font-bold text-gray-500 mb-1" }, "Detalhes (opcional)"), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] rounded-2xl max-w-sm w-full shadow-2xl border border-[var(--red)]/40 overflow-hidden shake-once" }, /* @__PURE__ */ React.createElement("div", { className: "bg-gradient-to-r from-[var(--red)] to-[#A8201A] px-6 py-5 relative overflow-hidden" }, /* @__PURE__ */ React.createElement("div", { className: "absolute -right-4 -top-4 w-20 h-20 rounded-full bg-white/10 ping-ring" }), /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3 relative" }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 30, className: "text-white shrink-0" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "text-white/80 text-[11px] font-bold uppercase tracking-[0.2em]" }, "Chamado de Emerg\xEAncia"), /* @__PURE__ */ React.createElement("h3", { className: "font-display font-bold text-xl text-white leading-tight" }, "Doca ", doca.numeroDoca)))), /* @__PURE__ */ React.createElement("div", { className: "p-6" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm text-[var(--text-muted)] mb-4" }, "O chamado \xE9 enviado em tempo real para todos os administradores, com sinal sonoro de alerta."), /* @__PURE__ */ React.createElement("label", { className: "block text-xs font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, "Motivo"), /* @__PURE__ */ React.createElement("select", { className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-2.5 mb-3 outline-none focus:border-[var(--gold)]", value: motivo, onChange: (e) => setMotivo(e.target.value) }, motivos.map((m) => /* @__PURE__ */ React.createElement("option", { key: m, value: m }, m))), /* @__PURE__ */ React.createElement("label", { className: "block text-xs font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, "Detalhes (opcional)"), /* @__PURE__ */ React.createElement(
     "textarea",
     {
-      className: "w-full border-2 border-gray-200 rounded-lg p-2 mb-4 outline-none text-sm",
+      className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-2.5 mb-5 outline-none focus:border-[var(--gold)] text-sm",
       rows: "3",
       placeholder: "Descreva rapidamente o que est\xE1 acontecendo...",
       value: mensagem,
       onChange: (e) => setMensagem(e.target.value)
     }
-  ), /* @__PURE__ */ React.createElement("div", { className: "flex gap-3" }, /* @__PURE__ */ React.createElement("button", { onClick: onCancel, disabled: enviando, className: "flex-grow py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 text-sm disabled:opacity-50" }, "Cancelar"), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ React.createElement("div", { className: "flex gap-3" }, /* @__PURE__ */ React.createElement("button", { onClick: onCancel, disabled: enviando, className: "flex-grow py-3 bg-[var(--surface-2)] text-[var(--text-muted)] font-semibold rounded-xl hover:bg-[var(--border)] text-sm disabled:opacity-50 border border-[var(--border)]" }, "Cancelar"), /* @__PURE__ */ React.createElement(
     "button",
     {
       onClick: () => onConfirm(motivo, mensagem),
       disabled: enviando,
-      className: "flex-grow py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 text-sm shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
+      className: "flex-grow py-3 bg-[var(--red)] text-white font-bold rounded-xl hover:brightness-110 text-sm shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
     },
     enviando ? /* @__PURE__ */ React.createElement(Loader2, { size: 18, className: "animate-spin" }) : /* @__PURE__ */ React.createElement(AlertTriangle, { size: 18 }),
-    enviando ? "Enviando..." : "Abrir Chamado"
-  ))));
+    enviando ? "Enviando..." : "Abrir Chamado Agora"
+  )))));
 }
 function ReportModal({ titulo, conteudo, onFechar }) {
   const [copiado, setCopiado] = useState(false);
-  return /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "bg-white rounded-2xl p-6 max-w-sm w-full" }, /* @__PURE__ */ React.createElement("h2", { className: "font-black text-xl mb-4" }, titulo), /* @__PURE__ */ React.createElement("textarea", { readOnly: true, className: "w-full h-64 bg-gray-50 p-3 rounded-lg text-xs font-mono mb-4 border border-gray-200", value: conteudo }), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] rounded-2xl p-6 max-w-sm w-full border border-[var(--border)] shadow-2xl" }, /* @__PURE__ */ React.createElement("h2", { className: "font-display font-bold text-lg text-[var(--text)] mb-4" }, titulo), /* @__PURE__ */ React.createElement("textarea", { readOnly: true, className: "w-full h-64 bg-[var(--surface-2)] p-3 rounded-lg text-xs font-data mb-4 border border-[var(--border)] text-[var(--text-muted)]", value: conteudo }), /* @__PURE__ */ React.createElement(
     "button",
     {
       onClick: () => {
@@ -134,10 +173,20 @@ function ReportModal({ titulo, conteudo, onFechar }) {
         setCopiado(true);
         setTimeout(() => setCopiado(false), 2e3);
       },
-      className: `w-full py-3 rounded-xl font-bold text-white ${copiado ? "bg-green-500" : "bg-[#3483FA]"}`
+      className: `w-full py-3 rounded-xl font-bold text-white transition-all ${copiado ? "bg-[var(--green)]" : "bg-[var(--gold)] text-[#1A1404]"}`
     },
     copiado ? "Copiado!" : "Copiar Relat\xF3rio"
-  ), /* @__PURE__ */ React.createElement("button", { onClick: onFechar, className: "w-full mt-2 py-2 text-gray-500 font-bold hover:text-gray-700" }, "Fechar")));
+  ), /* @__PURE__ */ React.createElement("button", { onClick: onFechar, className: "w-full mt-2 py-2 text-[var(--text-faint)] font-semibold hover:text-[var(--text)]" }, "Fechar")));
+}
+function DocaDetailModal({ doca, chamadoAtivo, ehAdmin, onClose, onEditar, onExcluir, onEmergencia }) {
+  const linhas = [
+    { label: "Posi\xE7\xF5es", valor: doca.posicoes || "0" },
+    { label: "Mangas", valor: doca.mangas || "0" },
+    { label: "Paletes", valor: doca.paletes || "0" },
+    { label: "Gaylord", valor: doca.gaylord || "0" },
+    { label: "Total Pacotes", valor: doca.pacotes || "0" }
+  ];
+  return /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] rounded-2xl max-w-sm w-full border border-[var(--border)] shadow-2xl overflow-hidden" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--bg-elevated)] px-6 py-5 border-b border-[var(--border)] flex items-start justify-between" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-faint)] mb-1" }, "Doca"), /* @__PURE__ */ React.createElement("span", { className: "font-data inline-flex items-center px-3 py-1 rounded-md bg-[var(--surface-2)] border border-[var(--border)] text-[var(--gold-soft)] text-lg tracking-wider" }, doca.numeroDoca)), /* @__PURE__ */ React.createElement("button", { onClick: onClose, className: "p-1.5 text-[var(--text-faint)] hover:text-[var(--text)] hover:bg-white/5 rounded-lg" }, /* @__PURE__ */ React.createElement(X, { size: 20 }))), /* @__PURE__ */ React.createElement("div", { className: "p-6" }, chamadoAtivo && /* @__PURE__ */ React.createElement("div", { className: `mb-4 px-3 py-2 rounded-lg border text-xs font-bold flex items-center gap-2 ${badgeChamado(chamadoAtivo.status).classe}` }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 14 }), " Chamado ", badgeChamado(chamadoAtivo.status).texto.toLowerCase(), ": ", chamadoAtivo.motivo), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-2 gap-3 mb-5" }, linhas.map((l) => /* @__PURE__ */ React.createElement("div", { key: l.label, className: "bg-[var(--surface-2)] border border-[var(--border-soft)] rounded-lg p-3" }, /* @__PURE__ */ React.createElement("p", { className: "text-[10px] font-bold uppercase tracking-wide text-[var(--text-faint)] mb-1" }, l.label), /* @__PURE__ */ React.createElement("p", { className: "font-data text-[var(--text)] text-base" }, l.valor)))), /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5 text-sm border-t border-[var(--border-soft)] pt-4 mb-6" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text-faint)]" }, "Respons\xE1vel"), /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text)] font-semibold" }, doca.donoNome || "\u2014")), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text-faint)]" }, "Cadastrada em"), /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text-muted)] font-data text-xs" }, formatarData(doca.criadoEm))), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text-faint)]" }, "\xDAltima atualiza\xE7\xE3o"), /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text-muted)] font-data text-xs" }, formatarData(doca.atualizadoEm)))), /* @__PURE__ */ React.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ React.createElement("button", { onClick: onEditar, className: "flex-1 py-2.5 bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg font-semibold text-sm flex items-center justify-center gap-1.5 hover:border-[var(--gold)]/50" }, /* @__PURE__ */ React.createElement(Pencil, { size: 15 }), " Editar"), !ehAdmin && onEmergencia && /* @__PURE__ */ React.createElement("button", { onClick: onEmergencia, className: "flex-1 py-2.5 bg-[var(--red-bg)] border border-[var(--red)]/40 text-[var(--red)] rounded-lg font-semibold text-sm flex items-center justify-center gap-1.5 hover:bg-[var(--red)]/20 emergency-pulse" }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 15 }), " Emerg\xEAncia"), /* @__PURE__ */ React.createElement("button", { onClick: onExcluir, className: "py-2.5 px-3 bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text-faint)] rounded-lg hover:text-[var(--red)] hover:border-[var(--red)]/40" }, /* @__PURE__ */ React.createElement(Trash2, { size: 16 }))))));
 }
 function AuthScreen() {
   const [modo, setModo] = useState("login");
@@ -182,43 +231,43 @@ function AuthScreen() {
       setCarregando(false);
     }
   };
-  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-gray-50 flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "w-full max-w-sm" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col items-center mb-6" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[#2D3277] p-4 rounded-2xl mb-3" }, /* @__PURE__ */ React.createElement(Container, { size: 32, className: "text-[#FFE600]" })), /* @__PURE__ */ React.createElement("h1", { className: "text-2xl font-black text-[#2D3277]" }, "Controle de Carga"), /* @__PURE__ */ React.createElement("p", { className: "text-gray-500 text-sm" }, "Painel de Despacho de Docas")), /* @__PURE__ */ React.createElement("div", { className: "bg-white rounded-2xl shadow-sm border border-gray-200 p-6" }, /* @__PURE__ */ React.createElement("div", { className: "flex mb-6 bg-gray-100 rounded-xl p-1" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => alternarModo("login"), className: `flex-1 py-2 rounded-lg font-bold text-sm transition-all ${modo === "login" ? "bg-white shadow-sm text-[#2D3277]" : "text-gray-500"}` }, "Entrar"), /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => alternarModo("cadastro"), className: `flex-1 py-2 rounded-lg font-bold text-sm transition-all ${modo === "cadastro" ? "bg-white shadow-sm text-[#2D3277]" : "text-gray-500"}` }, "Cadastrar")), /* @__PURE__ */ React.createElement("form", { onSubmit: handleSubmit, className: "space-y-4" }, modo === "cadastro" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-2 text-xs font-bold text-gray-500 mb-1" }, /* @__PURE__ */ React.createElement(User, { size: 14 }), " Nome"), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-[var(--bg)] flex items-center justify-center p-4" }, /* @__PURE__ */ React.createElement("div", { className: "w-full max-w-sm" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col items-center mb-8" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] border border-[var(--border)] p-4 rounded-2xl mb-4 shadow-lg" }, /* @__PURE__ */ React.createElement(Container, { size: 30, className: "text-[var(--gold)]" })), /* @__PURE__ */ React.createElement("h1", { className: "font-display text-3xl font-bold text-[var(--text)] tracking-wide" }, "DESPACHO"), /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-faint)] text-xs font-bold uppercase tracking-[0.25em] mt-1" }, "Controle de Carga \xB7 Docas")), /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] rounded-2xl shadow-2xl border border-[var(--border)] p-6" }, /* @__PURE__ */ React.createElement("div", { className: "flex mb-6 bg-[var(--bg-elevated)] rounded-xl p-1 border border-[var(--border-soft)]" }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => alternarModo("login"), className: `flex-1 py-2 rounded-lg font-semibold text-sm transition-all ${modo === "login" ? "bg-[var(--gold)] text-[#1A1404]" : "text-[var(--text-faint)]"}` }, "Entrar"), /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => alternarModo("cadastro"), className: `flex-1 py-2 rounded-lg font-semibold text-sm transition-all ${modo === "cadastro" ? "bg-[var(--gold)] text-[#1A1404]" : "text-[var(--text-faint)]"}` }, "Cadastrar")), /* @__PURE__ */ React.createElement("form", { onSubmit: handleSubmit, className: "space-y-4" }, modo === "cadastro" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-2 text-xs font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, /* @__PURE__ */ React.createElement(User, { size: 14 }), " Nome"), /* @__PURE__ */ React.createElement(
     "input",
     {
       type: "text",
-      className: "w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[#3483FA]",
+      className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-3 outline-none focus:border-[var(--gold)]",
       placeholder: "Seu nome completo",
       value: nome,
       onChange: (e) => setNome(e.target.value)
     }
-  )), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-2 text-xs font-bold text-gray-500 mb-1" }, /* @__PURE__ */ React.createElement(Mail, { size: 14 }), " E-mail"), /* @__PURE__ */ React.createElement(
+  )), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-2 text-xs font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, /* @__PURE__ */ React.createElement(Mail, { size: 14 }), " E-mail"), /* @__PURE__ */ React.createElement(
     "input",
     {
       type: "email",
-      className: "w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[#3483FA]",
+      className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-3 outline-none focus:border-[var(--gold)]",
       placeholder: "seu@email.com",
       value: email,
       onChange: (e) => setEmail(e.target.value)
     }
-  )), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-2 text-xs font-bold text-gray-500 mb-1" }, /* @__PURE__ */ React.createElement(Lock, { size: 14 }), " Senha"), /* @__PURE__ */ React.createElement("div", { className: "relative" }, /* @__PURE__ */ React.createElement(
+  )), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-2 text-xs font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, /* @__PURE__ */ React.createElement(Lock, { size: 14 }), " Senha"), /* @__PURE__ */ React.createElement("div", { className: "relative" }, /* @__PURE__ */ React.createElement(
     "input",
     {
       type: mostrarSenha ? "text" : "password",
-      className: "w-full border-2 border-gray-200 rounded-lg p-3 pr-10 outline-none focus:border-[#3483FA]",
+      className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-3 pr-10 outline-none focus:border-[var(--gold)]",
       placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
       value: senha,
       onChange: (e) => setSenha(e.target.value)
     }
-  ), /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setMostrarSenha(!mostrarSenha), className: "absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" }, mostrarSenha ? /* @__PURE__ */ React.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ React.createElement(Eye, { size: 18 })))), erro && /* @__PURE__ */ React.createElement("p", { className: "text-red-600 text-sm font-semibold bg-red-50 border border-red-200 rounded-lg p-2" }, erro), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => setMostrarSenha(!mostrarSenha), className: "absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-faint)]" }, mostrarSenha ? /* @__PURE__ */ React.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ React.createElement(Eye, { size: 18 })))), erro && /* @__PURE__ */ React.createElement("p", { className: "text-[var(--red)] text-sm font-semibold bg-[var(--red-bg)] border border-[var(--red)]/30 rounded-lg p-2" }, erro), /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "submit",
       disabled: carregando,
-      className: "w-full py-3 bg-[#3483FA] text-white rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-[#2968C8] transition-all disabled:opacity-60"
+      className: "w-full py-3 bg-[var(--gold)] text-[#1A1404] rounded-lg font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all disabled:opacity-60"
     },
     carregando ? /* @__PURE__ */ React.createElement(Loader2, { size: 20, className: "animate-spin" }) : modo === "login" ? /* @__PURE__ */ React.createElement(LogIn, { size: 20 }) : /* @__PURE__ */ React.createElement(UserPlus, { size: 20 }),
     carregando ? "Aguarde..." : modo === "login" ? "Entrar" : "Criar Conta"
-  ))), /* @__PURE__ */ React.createElement("p", { className: "text-center text-xs text-gray-400 mt-4" }, "Acesso restrito a operadores autorizados.")));
+  ))), /* @__PURE__ */ React.createElement("p", { className: "text-center text-xs text-[var(--text-faint)] mt-5" }, "Acesso restrito a operadores autorizados.")));
 }
 function UserPanel({ user, profile, onLogout }) {
   const docaVazia = { numeroDoca: "", posicoes: "", mangas: "", paletes: "", gaylord: "", pacotes: "" };
@@ -233,6 +282,8 @@ function UserPanel({ user, profile, onLogout }) {
   const [docaEmergencia, setDocaEmergencia] = useState(null);
   const [enviandoChamado, setEnviandoChamado] = useState(false);
   const [aviso, setAviso] = useState("");
+  const [docaDetalhe, setDocaDetalhe] = useState(null);
+  const [chamadoCancelando, setChamadoCancelando] = useState(null);
   useEffect(() => {
     if (!db) return;
     const unsub = db.collection(COL_DOCAS).where("donoUid", "==", user.uid).onSnapshot(
@@ -257,7 +308,12 @@ function UserPanel({ user, profile, onLogout }) {
     );
     return unsub;
   }, [user.uid]);
-  const chamadoAbertoDaDoca = (docaId) => chamados.find((c) => c.docaId === docaId && c.status !== "resolvido");
+  useEffect(() => {
+    if (!docaDetalhe) return;
+    const atualizado = docas.find((d) => d.id === docaDetalhe.id);
+    if (atualizado) setDocaDetalhe(atualizado);
+  }, [docas]);
+  const chamadoAbertoDaDoca = (docaId) => chamados.find((c) => c.docaId === docaId && c.status !== "resolvido" && c.status !== "cancelado");
   const handleSave = async () => {
     if (!activeDoca.numeroDoca.trim()) {
       alert("Por favor, informe o n\xFAmero da doca.");
@@ -308,6 +364,7 @@ function UserPanel({ user, profile, onLogout }) {
     }
   };
   const handleStartEdit = (doca) => {
+    setDocaDetalhe(null);
     setEditingId(doca.id);
     setOriginalDoca(doca);
     setActiveDoca({
@@ -325,6 +382,7 @@ function UserPanel({ user, profile, onLogout }) {
     setActiveDoca(docaVazia);
   };
   const handleDeleteClick = (doca) => {
+    setDocaDetalhe(null);
     setDocaToDelete(doca);
     setShowDeleteModal(true);
   };
@@ -350,6 +408,7 @@ function UserPanel({ user, profile, onLogout }) {
     setDocaToDelete(null);
   };
   const handleAbrirChamado = (doca) => {
+    setDocaDetalhe(null);
     setDocaEmergencia(doca);
     setShowEmergencyModal(true);
   };
@@ -367,9 +426,10 @@ function UserPanel({ user, profile, onLogout }) {
         status: "aberto",
         criadoEm: (/* @__PURE__ */ new Date()).toISOString()
       });
+      tocarAlertaEmergencia();
       setShowEmergencyModal(false);
       setDocaEmergencia(null);
-      setAviso("Chamado aberto! O administrador foi notificado.");
+      setAviso("Chamado aberto! Os administradores foram notificados.");
       setTimeout(() => setAviso(""), 4e3);
     } catch (e) {
       console.error(e);
@@ -378,35 +438,67 @@ function UserPanel({ user, profile, onLogout }) {
       setEnviandoChamado(false);
     }
   };
-  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-gray-50 pb-12 font-sans text-lg" }, /* @__PURE__ */ React.createElement("header", { className: "bg-[#FFE600] p-4 shadow-md mb-6 sticky top-0 z-10" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-2xl mx-auto flex items-center justify-between" }, /* @__PURE__ */ React.createElement("h1", { className: "text-[#2D3277] text-xl font-black flex items-center gap-2" }, /* @__PURE__ */ React.createElement(Container, { className: "w-6 h-6 text-[#2D3277]" }), " Controle de Carga"), /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ React.createElement("span", { className: "text-[#2D3277] text-sm font-bold hidden sm:inline" }, profile.nome), /* @__PURE__ */ React.createElement("button", { onClick: onLogout, className: "p-2 bg-[#2D3277]/10 hover:bg-[#2D3277]/20 rounded-lg text-[#2D3277]", title: "Sair" }, /* @__PURE__ */ React.createElement(LogOut, { size: 18 }))))), /* @__PURE__ */ React.createElement("main", { className: "max-w-2xl mx-auto px-4" }, aviso && /* @__PURE__ */ React.createElement("div", { className: "bg-green-50 border border-green-300 text-green-700 font-semibold text-sm rounded-lg p-3 mb-4 flex items-center gap-2" }, /* @__PURE__ */ React.createElement(CheckCircle, { size: 18 }), " ", aviso), /* @__PURE__ */ React.createElement("div", { className: "bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-6" }, /* @__PURE__ */ React.createElement("h2", { className: "text-lg font-bold text-[#2D3277] mb-4 flex items-center gap-2" }, /* @__PURE__ */ React.createElement(Box, { size: 18, className: "text-[#2D3277]" }), " ", editingId ? "Editar Doca" : "Cadastrar Nova Doca"), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-2 gap-3 mb-4" }, CAMPOS_DOCA.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.campo }, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-1 text-xs font-bold text-gray-500 mb-1" }, /* @__PURE__ */ React.createElement(item.icon, { size: 14, className: "text-[#3483FA]" }), " ", item.label), /* @__PURE__ */ React.createElement(
+  const handleCancelarChamado = async () => {
+    if (!chamadoCancelando) return;
+    try {
+      await db.collection(COL_CHAMADOS).doc(chamadoCancelando.id).update({
+        status: "cancelado",
+        canceladoEm: (/* @__PURE__ */ new Date()).toISOString()
+      });
+      await registrarAlteracao({
+        docaId: chamadoCancelando.docaId,
+        numeroDoca: chamadoCancelando.numeroDoca,
+        autorUid: user.uid,
+        autorNome: profile.nome,
+        tipo: "chamado_cancelado",
+        campo: "Chamado",
+        valorAnterior: chamadoCancelando.status,
+        valorNovo: "cancelado"
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    setChamadoCancelando(null);
+  };
+  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-[var(--bg)] pb-12 font-sans" }, /* @__PURE__ */ React.createElement("header", { className: "bg-[var(--bg-elevated)] border-b border-[var(--border)] px-4 py-3 sticky top-0 z-10" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-2xl mx-auto flex items-center justify-between" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] border border-[var(--border)] p-1.5 rounded-lg" }, /* @__PURE__ */ React.createElement(Container, { className: "w-5 h-5 text-[var(--gold)]" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", { className: "text-[var(--text)] font-display text-base font-bold tracking-wide leading-none" }, "DESPACHO"), /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-faint)] text-[10px] font-bold uppercase tracking-wider mt-0.5" }, "Opera\xE7\xE3o de Docas"))), /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text-muted)] text-sm font-semibold hidden sm:inline" }, profile.nome), /* @__PURE__ */ React.createElement("button", { onClick: onLogout, className: "p-2 bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--gold)]/50 rounded-lg text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors", title: "Sair" }, /* @__PURE__ */ React.createElement(LogOut, { size: 17 }))))), /* @__PURE__ */ React.createElement("main", { className: "max-w-2xl mx-auto px-4 pt-6" }, aviso && /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--green-bg)] border border-[var(--green)]/30 text-[var(--green)] font-semibold text-sm rounded-lg p-3 mb-4 flex items-center gap-2" }, /* @__PURE__ */ React.createElement(CheckCircle, { size: 18 }), " ", aviso), /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] p-4 rounded-xl shadow-sm border border-[var(--border)] mb-6" }, /* @__PURE__ */ React.createElement("h2", { className: "text-base font-display font-bold text-[var(--text)] mb-4 flex items-center gap-2" }, /* @__PURE__ */ React.createElement(Box, { size: 17, className: "text-[var(--gold)]" }), " ", editingId ? "Editar Doca" : "Cadastrar Nova Doca"), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-2 gap-3 mb-4" }, CAMPOS_DOCA.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.campo }, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-1 text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, /* @__PURE__ */ React.createElement(item.icon, { size: 13, className: "text-[var(--gold)]/80" }), " ", item.label), /* @__PURE__ */ React.createElement(
     "input",
     {
       type: item.tipo,
-      className: "w-full border-2 border-gray-200 rounded-lg p-2 outline-none",
+      className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-2 outline-none focus:border-[var(--gold)]",
       value: activeDoca[item.campo],
       onChange: (e) => setActiveDoca({ ...activeDoca, [item.campo]: e.target.value })
     }
-  )))), /* @__PURE__ */ React.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ React.createElement("button", { onClick: handleSave, className: "flex-grow py-3 bg-[#3483FA] text-white rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-[#2968C8] transition-all" }, /* @__PURE__ */ React.createElement(Save, { size: 20 }), " ", editingId ? "Atualizar Doca" : "Salvar Doca"), editingId && /* @__PURE__ */ React.createElement("button", { onClick: handleCancelEdit, className: "py-3 px-4 bg-gray-200 text-gray-700 rounded-lg font-bold hover:bg-gray-300 transition-all text-sm" }, "Cancelar"))), /* @__PURE__ */ React.createElement("div", { className: "space-y-3 mb-6" }, /* @__PURE__ */ React.createElement("h2", { className: "text-xl font-black text-gray-800" }, "Minhas Docas"), docas.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-gray-400 text-center py-4 italic" }, "Nenhuma doca cadastrada."), docas.map((h) => {
+  )))), /* @__PURE__ */ React.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ React.createElement("button", { onClick: handleSave, className: "flex-grow py-3 bg-[var(--gold)] text-[#1A1404] rounded-lg font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all" }, /* @__PURE__ */ React.createElement(Save, { size: 19 }), " ", editingId ? "Atualizar Doca" : "Salvar Doca"), editingId && /* @__PURE__ */ React.createElement("button", { onClick: handleCancelEdit, className: "py-3 px-4 bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text-muted)] rounded-lg font-semibold hover:bg-[var(--border)] transition-all text-sm" }, "Cancelar"))), /* @__PURE__ */ React.createElement("div", { className: "space-y-3 mb-6" }, /* @__PURE__ */ React.createElement("h2", { className: "text-lg font-display font-bold text-[var(--text)]" }, "Minhas Docas"), docas.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-faint)] text-center py-4 italic text-sm" }, "Nenhuma doca cadastrada."), docas.map((h) => {
     const chamadoAtivo = chamadoAbertoDaDoca(h.id);
     return /* @__PURE__ */ React.createElement(
       "div",
       {
         key: h.id,
-        className: `bg-white p-4 rounded-xl shadow-sm border-l-4 transition-all ${editingId === h.id ? "border-[#3483FA] bg-blue-50/30" : chamadoAtivo ? "border-red-400" : "border-[#e2e8f0]"}`
+        className: `bg-[var(--surface)] p-4 rounded-xl shadow-sm border-l-4 transition-all ${editingId === h.id ? "border-l-[var(--gold)] bg-[var(--gold)]/[0.04]" : chamadoAtivo ? "border-l-[var(--red)]" : "border-l-[var(--border)]"} border-y border-r border-[var(--border-soft)]`
       },
-      /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-start gap-2" }, /* @__PURE__ */ React.createElement("div", { onClick: () => handleStartEdit(h), className: "cursor-pointer flex-grow" }, /* @__PURE__ */ React.createElement("p", { className: "font-bold text-gray-800" }, "Doca ", h.numeroDoca, " ", editingId === h.id && /* @__PURE__ */ React.createElement("span", { className: "text-xs text-[#3483FA] ml-1 font-normal" }, "(editando)")), /* @__PURE__ */ React.createElement("p", { className: "text-sm text-gray-500" }, h.pacotes || 0, " pacotes \u2022 ", h.posicoes || 0, " posi\xE7\xF5es"), chamadoAtivo && /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          className: `inline-flex items-center gap-1 mt-1 text-xs font-bold px-2 py-0.5 rounded-full border ${chamadoAtivo.status === "aberto" ? "bg-red-100 text-red-700 border-red-300 animate-pulse" : "bg-amber-100 text-amber-700 border-amber-300"}`
-        },
-        /* @__PURE__ */ React.createElement(AlertTriangle, { size: 12 }),
-        " ",
-        chamadoAtivo.status === "aberto" ? "Chamado aberto" : "Em atendimento"
-      )), /* @__PURE__ */ React.createElement("div", { className: "flex gap-1 shrink-0" }, /* @__PURE__ */ React.createElement("button", { onClick: () => handleAbrirChamado(h), className: "p-2 text-red-600 hover:bg-red-50 rounded-lg", title: "Abrir chamado de emerg\xEAncia" }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 18 })), /* @__PURE__ */ React.createElement("button", { onClick: () => handleDeleteClick(h), className: "p-2 text-gray-400 hover:bg-gray-100 hover:text-red-500 rounded-lg", title: "Excluir" }, /* @__PURE__ */ React.createElement(Trash2, { size: 18 }))))
+      /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-start gap-2" }, /* @__PURE__ */ React.createElement("button", { onClick: () => setDocaDetalhe(h), className: "text-left cursor-pointer flex-grow" }, /* @__PURE__ */ React.createElement("p", { className: "font-semibold text-[var(--text)] flex items-center gap-2" }, /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--gold-soft)]" }, "Doca ", h.numeroDoca), editingId === h.id && /* @__PURE__ */ React.createElement("span", { className: "text-[10px] text-[var(--gold)] font-bold uppercase" }, "editando")), /* @__PURE__ */ React.createElement("p", { className: "text-sm text-[var(--text-faint)]" }, h.pacotes || 0, " pacotes \u2022 ", h.posicoes || 0, " posi\xE7\xF5es"), chamadoAtivo && /* @__PURE__ */ React.createElement("span", { className: `inline-flex items-center gap-1.5 mt-1.5 text-xs font-bold px-2 py-0.5 rounded-full border ${badgeChamado(chamadoAtivo.status).classe}` }, /* @__PURE__ */ React.createElement("span", { className: `w-1.5 h-1.5 rounded-full ${badgeChamado(chamadoAtivo.status).dot} ${chamadoAtivo.status === "aberto" ? "emergency-pulse" : ""}` }), chamadoAtivo.status === "aberto" ? "Chamado aberto" : "Em atendimento")), /* @__PURE__ */ React.createElement("div", { className: "flex gap-1 shrink-0" }, /* @__PURE__ */ React.createElement("button", { onClick: (e) => {
+        e.stopPropagation();
+        handleStartEdit(h);
+      }, className: "p-2 text-[var(--text-faint)] hover:text-[var(--gold)] hover:bg-white/5 rounded-lg", title: "Editar" }, /* @__PURE__ */ React.createElement(Pencil, { size: 16 })), /* @__PURE__ */ React.createElement("button", { onClick: (e) => {
+        e.stopPropagation();
+        handleAbrirChamado(h);
+      }, className: "p-2 text-[var(--red)] hover:bg-[var(--red-bg)] rounded-lg emergency-pulse", title: "Abrir chamado de emerg\xEAncia" }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 16 })), /* @__PURE__ */ React.createElement("button", { onClick: (e) => {
+        e.stopPropagation();
+        handleDeleteClick(h);
+      }, className: "p-2 text-[var(--text-faint)] hover:bg-white/5 hover:text-[var(--red)] rounded-lg", title: "Excluir" }, /* @__PURE__ */ React.createElement(Trash2, { size: 16 }))))
     );
-  })), chamados.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "space-y-3" }, /* @__PURE__ */ React.createElement("h2", { className: "text-xl font-black text-gray-800" }, "Meus Chamados"), chamados.map((c) => {
+  })), chamados.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "space-y-3" }, /* @__PURE__ */ React.createElement("h2", { className: "text-lg font-display font-bold text-[var(--text)]" }, "Meus Chamados"), chamados.map((c) => {
     const b = badgeChamado(c.status);
-    return /* @__PURE__ */ React.createElement("div", { key: c.id, className: "bg-white p-4 rounded-xl shadow-sm border border-gray-200" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-start mb-1 gap-2" }, /* @__PURE__ */ React.createElement("p", { className: "font-bold text-gray-800" }, "Doca ", c.numeroDoca, " \u2022 ", c.motivo), /* @__PURE__ */ React.createElement("span", { className: `text-xs font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${b.classe}` }, b.texto)), c.mensagem && /* @__PURE__ */ React.createElement("p", { className: "text-sm text-gray-600 mb-1" }, c.mensagem), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-gray-400" }, "Aberto em ", formatarData(c.criadoEm), c.atendidoPor ? ` \u2022 Atendido por ${c.atendidoPor}` : ""));
+    const podeCancelar = c.status === "aberto" || c.status === "atendendo";
+    return /* @__PURE__ */ React.createElement("div", { key: c.id, className: "bg-[var(--surface)] p-4 rounded-xl shadow-sm border border-[var(--border-soft)]" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-start mb-1 gap-2" }, /* @__PURE__ */ React.createElement("p", { className: "font-semibold text-[var(--text)]" }, /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--gold-soft)]" }, "Doca ", c.numeroDoca), " \u2022 ", c.motivo), /* @__PURE__ */ React.createElement("span", { className: `inline-flex items-center gap-1.5 text-xs font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${b.classe}` }, /* @__PURE__ */ React.createElement("span", { className: `w-1.5 h-1.5 rounded-full ${b.dot}` }), " ", b.texto)), c.mensagem && /* @__PURE__ */ React.createElement("p", { className: "text-sm text-[var(--text-muted)] mb-1" }, c.mensagem), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-[var(--text-faint)] mb-2" }, "Aberto em ", formatarData(c.criadoEm), c.atendidoPor ? ` \u2022 Atendido por ${c.atendidoPor}` : ""), podeCancelar && /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        onClick: () => setChamadoCancelando(c),
+        className: "text-xs font-semibold text-[var(--text-faint)] hover:text-[var(--red)] flex items-center gap-1.5"
+      },
+      /* @__PURE__ */ React.createElement(XCircle, { size: 14 }),
+      " Cancelar chamado"
+    ));
   }))), showDeleteModal && docaToDelete && /* @__PURE__ */ React.createElement(
     ConfirmModal,
     {
@@ -430,15 +522,48 @@ function UserPanel({ user, profile, onLogout }) {
         setDocaEmergencia(null);
       }
     }
+  ), chamadoCancelando && /* @__PURE__ */ React.createElement(
+    ConfirmModal,
+    {
+      titulo: "Cancelar Chamado",
+      mensagem: `Cancelar o chamado de emerg\xEAncia da Doca ${chamadoCancelando.numeroDoca}? Os administradores ser\xE3o avisados que n\xE3o \xE9 mais necess\xE1rio.`,
+      textoConfirmar: "Cancelar Chamado",
+      onConfirmar: handleCancelarChamado,
+      onCancelar: () => setChamadoCancelando(null)
+    }
+  ), docaDetalhe && /* @__PURE__ */ React.createElement(
+    DocaDetailModal,
+    {
+      doca: docaDetalhe,
+      chamadoAtivo: chamadoAbertoDaDoca(docaDetalhe.id),
+      ehAdmin: false,
+      onClose: () => setDocaDetalhe(null),
+      onEditar: () => handleStartEdit(docaDetalhe),
+      onExcluir: () => handleDeleteClick(docaDetalhe),
+      onEmergencia: () => handleAbrirChamado(docaDetalhe)
+    }
   ));
 }
 function AdminPanel({ user, profile, onLogout }) {
+  const docaVazia = { numeroDoca: "", posicoes: "", mangas: "", paletes: "", gaylord: "", pacotes: "" };
   const [docas, setDocas] = useState([]);
   const [chamados, setChamados] = useState([]);
   const [alteracoes, setAlteracoes] = useState([]);
   const [aba, setAba] = useState("chamados");
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportContent, setReportContent] = useState("");
+  const [docaDetalhe, setDocaDetalhe] = useState(null);
+  const [mostrarForm, setMostrarForm] = useState(false);
+  const [formDoca, setFormDoca] = useState(docaVazia);
+  const [responsavelForm, setResponsavelForm] = useState("");
+  const [editandoDocaId, setEditandoDocaId] = useState(null);
+  const [docaOriginalAdmin, setDocaOriginalAdmin] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [docaToDelete, setDocaToDelete] = useState(null);
+  const [alteracaoParaApagar, setAlteracaoParaApagar] = useState(null);
+  const [confirmandoLimparHistorico, setConfirmandoLimparHistorico] = useState(false);
+  const chamadosVistosRef = useRef(/* @__PURE__ */ new Set());
+  const primeiraCargaRef = useRef(true);
   useEffect(() => {
     if (!db) return;
     const unsub = db.collection(COL_DOCAS).onSnapshot(
@@ -456,7 +581,7 @@ function AdminPanel({ user, profile, onLogout }) {
     const unsub = db.collection(COL_CHAMADOS).onSnapshot(
       (snap) => {
         const dados = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        const peso = { aberto: 0, atendendo: 1, resolvido: 2 };
+        const peso = { aberto: 0, atendendo: 1, cancelado: 2, resolvido: 3 };
         dados.sort((a, b) => peso[a.status] - peso[b.status] || (b.criadoEm || "").localeCompare(a.criadoEm || ""));
         setChamados(dados);
       },
@@ -472,7 +597,24 @@ function AdminPanel({ user, profile, onLogout }) {
     );
     return unsub;
   }, []);
-  const totalAbertos = chamados.filter((c) => c.status !== "resolvido").length;
+  useEffect(() => {
+    const idsAbertos = new Set(chamados.filter((c) => c.status === "aberto").map((c) => c.id));
+    if (!primeiraCargaRef.current) {
+      let temNovo = false;
+      idsAbertos.forEach((id) => {
+        if (!chamadosVistosRef.current.has(id)) temNovo = true;
+      });
+      if (temNovo) tocarAlertaEmergencia();
+    }
+    chamadosVistosRef.current = idsAbertos;
+    primeiraCargaRef.current = false;
+  }, [chamados]);
+  useEffect(() => {
+    if (!docaDetalhe) return;
+    const atualizado = docas.find((d) => d.id === docaDetalhe.id);
+    if (atualizado) setDocaDetalhe(atualizado);
+  }, [docas]);
+  const totalAbertos = chamados.filter((c) => c.status !== "resolvido" && c.status !== "cancelado").length;
   const handleAtender = async (c) => {
     try {
       await db.collection(COL_CHAMADOS).doc(c.id).update({ status: "atendendo", atendidoPor: profile.nome, atendidoEm: (/* @__PURE__ */ new Date()).toISOString() });
@@ -507,6 +649,128 @@ function AdminPanel({ user, profile, onLogout }) {
       console.error(e);
     }
   };
+  const abrirNovaDoca = () => {
+    setEditandoDocaId(null);
+    setDocaOriginalAdmin(null);
+    setFormDoca(docaVazia);
+    setResponsavelForm("");
+    setMostrarForm(true);
+    setDocaDetalhe(null);
+  };
+  const abrirEdicaoDoca = (doca) => {
+    setEditandoDocaId(doca.id);
+    setDocaOriginalAdmin(doca);
+    setFormDoca({
+      numeroDoca: doca.numeroDoca || "",
+      posicoes: doca.posicoes || "",
+      mangas: doca.mangas || "",
+      paletes: doca.paletes || "",
+      gaylord: doca.gaylord || "",
+      pacotes: doca.pacotes || ""
+    });
+    setResponsavelForm(doca.donoNome || "");
+    setMostrarForm(true);
+    setDocaDetalhe(null);
+  };
+  const fecharFormDoca = () => {
+    setMostrarForm(false);
+    setEditandoDocaId(null);
+    setDocaOriginalAdmin(null);
+    setFormDoca(docaVazia);
+    setResponsavelForm("");
+  };
+  const handleSalvarDocaAdmin = async () => {
+    if (!formDoca.numeroDoca.trim()) {
+      alert("Por favor, informe o n\xFAmero da doca.");
+      return;
+    }
+    const agora = (/* @__PURE__ */ new Date()).toISOString();
+    const nomeResponsavel = responsavelForm.trim() || profile.nome;
+    try {
+      if (editandoDocaId) {
+        const novoEstado = { ...formDoca, donoNome: nomeResponsavel };
+        const mudancas = diffComResponsavel(docaOriginalAdmin, novoEstado);
+        await db.collection(COL_DOCAS).doc(editandoDocaId).update({ ...formDoca, donoNome: nomeResponsavel, atualizadoEm: agora });
+        for (const m of mudancas) {
+          await registrarAlteracao({
+            docaId: editandoDocaId,
+            numeroDoca: formDoca.numeroDoca,
+            autorUid: user.uid,
+            autorNome: profile.nome,
+            tipo: "edicao",
+            campo: m.campo,
+            valorAnterior: m.valorAnterior,
+            valorNovo: m.valorNovo
+          });
+        }
+      } else {
+        const ref = await db.collection(COL_DOCAS).add({
+          ...formDoca,
+          donoUid: user.uid,
+          donoNome: nomeResponsavel,
+          criadoEm: agora,
+          atualizadoEm: agora
+        });
+        await registrarAlteracao({
+          docaId: ref.id,
+          numeroDoca: formDoca.numeroDoca,
+          autorUid: user.uid,
+          autorNome: profile.nome,
+          tipo: "criacao",
+          campo: "Doca",
+          valorAnterior: "\u2014",
+          valorNovo: "cadastrada"
+        });
+      }
+      fecharFormDoca();
+    } catch (e) {
+      console.error("Erro ao salvar doca:", e);
+      alert("N\xE3o foi poss\xEDvel salvar. Tente novamente.");
+    }
+  };
+  const handleDeleteClick = (doca) => {
+    setDocaDetalhe(null);
+    setDocaToDelete(doca);
+    setShowDeleteModal(true);
+  };
+  const confirmDelete = async () => {
+    if (!docaToDelete) return;
+    try {
+      await db.collection(COL_DOCAS).doc(docaToDelete.id).delete();
+      await registrarAlteracao({
+        docaId: docaToDelete.id,
+        numeroDoca: docaToDelete.numeroDoca,
+        autorUid: user.uid,
+        autorNome: profile.nome,
+        tipo: "exclusao",
+        campo: "Doca",
+        valorAnterior: "cadastrada",
+        valorNovo: "exclu\xEDda"
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    if (editandoDocaId === docaToDelete.id) fecharFormDoca();
+    setShowDeleteModal(false);
+    setDocaToDelete(null);
+  };
+  const handleApagarAlteracao = async () => {
+    if (!alteracaoParaApagar) return;
+    try {
+      await db.collection(COL_ALTERACOES).doc(alteracaoParaApagar.id).delete();
+    } catch (e) {
+      console.error(e);
+    }
+    setAlteracaoParaApagar(null);
+  };
+  const handleLimparHistorico = async () => {
+    try {
+      await Promise.all(alteracoes.map((a) => db.collection(COL_ALTERACOES).doc(a.id).delete()));
+    } catch (e) {
+      console.error(e);
+    }
+    setConfirmandoLimparHistorico(false);
+  };
   const handleGerarRelatorio = () => {
     const dataAtual = (/* @__PURE__ */ new Date()).toLocaleDateString("pt-BR");
     let text = `\u{1F4CB} RELAT\xD3RIO GERAL DE MOVIMENTA\xC7\xC3O
@@ -531,7 +795,7 @@ function AdminPanel({ user, profile, onLogout }) {
 Pacotes: ${totais.pacotes} | Posi\xE7\xF5es: ${totais.posicoes} | Mangas: ${totais.mangas} | Paletes: ${totais.paletes} | Gaylord: ${totais.gaylord}
 
 `;
-    const abertos = chamados.filter((c) => c.status !== "resolvido");
+    const abertos = chamados.filter((c) => c.status !== "resolvido" && c.status !== "cancelado");
     text += `\u{1F6A8} CHAMADOS PENDENTES: ${abertos.length}
 `;
     abertos.forEach((c) => {
@@ -541,14 +805,82 @@ Pacotes: ${totais.pacotes} | Posi\xE7\xF5es: ${totais.posicoes} | Mangas: ${tota
     setReportContent(text);
     setShowReportModal(true);
   };
-  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-gray-50 pb-12 font-sans text-lg" }, /* @__PURE__ */ React.createElement("header", { className: "bg-[#2D3277] p-4 shadow-md mb-6 sticky top-0 z-10" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-2xl mx-auto flex items-center justify-between" }, /* @__PURE__ */ React.createElement("h1", { className: "text-white text-xl font-black flex items-center gap-2" }, /* @__PURE__ */ React.createElement(Shield, { className: "w-6 h-6 text-[#FFE600]" }), " Painel Administrativo"), /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ React.createElement("span", { className: "text-white text-sm font-bold hidden sm:inline" }, profile.nome), /* @__PURE__ */ React.createElement("button", { onClick: onLogout, className: "p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white", title: "Sair" }, /* @__PURE__ */ React.createElement(LogOut, { size: 18 }))))), /* @__PURE__ */ React.createElement("main", { className: "max-w-2xl mx-auto px-4" }, /* @__PURE__ */ React.createElement("button", { onClick: handleGerarRelatorio, className: "w-full py-3 bg-[#3483FA] text-white rounded-xl font-bold mb-6 flex items-center justify-center gap-2 hover:bg-[#2968C8]" }, /* @__PURE__ */ React.createElement(Clipboard, { size: 18 }), " Gerar Relat\xF3rio Geral"), /* @__PURE__ */ React.createElement("div", { className: "flex bg-gray-100 rounded-xl p-1 mb-6 gap-1" }, /* @__PURE__ */ React.createElement("button", { onClick: () => setAba("chamados"), className: `flex-1 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1 ${aba === "chamados" ? "bg-white shadow-sm text-[#2D3277]" : "text-gray-500"}` }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 14 }), " Chamados", totalAbertos > 0 && /* @__PURE__ */ React.createElement("span", { className: "bg-red-600 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center ml-1" }, totalAbertos)), /* @__PURE__ */ React.createElement("button", { onClick: () => setAba("docas"), className: `flex-1 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1 ${aba === "docas" ? "bg-white shadow-sm text-[#2D3277]" : "text-gray-500"}` }, /* @__PURE__ */ React.createElement(Box, { size: 14 }), " Docas"), /* @__PURE__ */ React.createElement("button", { onClick: () => setAba("historico"), className: `flex-1 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1 ${aba === "historico" ? "bg-white shadow-sm text-[#2D3277]" : "text-gray-500"}` }, /* @__PURE__ */ React.createElement(History, { size: 14 }), " Hist\xF3rico")), aba === "chamados" && /* @__PURE__ */ React.createElement("div", { className: "space-y-3" }, chamados.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-gray-400 text-center py-4 italic" }, "Nenhum chamado registrado."), chamados.map((c) => {
+  const abrirDetalheDePorId = (docaId) => {
+    const d = docas.find((x) => x.id === docaId);
+    if (d) setDocaDetalhe(d);
+  };
+  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-[var(--bg)] pb-12 font-sans" }, /* @__PURE__ */ React.createElement("header", { className: "bg-[var(--bg-elevated)] border-b border-[var(--border)] px-4 py-3 sticky top-0 z-10" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-2xl mx-auto flex items-center justify-between" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] border border-[var(--gold)]/30 p-1.5 rounded-lg" }, /* @__PURE__ */ React.createElement(Shield, { className: "w-5 h-5 text-[var(--gold)]" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ React.createElement("h1", { className: "text-[var(--text)] font-display text-base font-bold tracking-wide leading-none" }, "DESPACHO"), /* @__PURE__ */ React.createElement("span", { className: "text-[9px] font-bold uppercase tracking-wider text-[var(--gold)] border border-[var(--gold)]/40 rounded px-1.5 py-0.5" }, "Admin")), /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-faint)] text-[10px] font-bold uppercase tracking-wider mt-0.5" }, "Painel Administrativo"))), /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ React.createElement("span", { className: "text-[var(--text-muted)] text-sm font-semibold hidden sm:inline" }, profile.nome), /* @__PURE__ */ React.createElement("button", { onClick: onLogout, className: "p-2 bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--gold)]/50 rounded-lg text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors", title: "Sair" }, /* @__PURE__ */ React.createElement(LogOut, { size: 17 }))))), /* @__PURE__ */ React.createElement("main", { className: "max-w-2xl mx-auto px-4 pt-6" }, /* @__PURE__ */ React.createElement("button", { onClick: handleGerarRelatorio, className: "w-full py-3 bg-[var(--gold)] text-[#1A1404] rounded-xl font-bold mb-6 flex items-center justify-center gap-2 hover:brightness-110 shadow-md" }, /* @__PURE__ */ React.createElement(Clipboard, { size: 18 }), " Gerar Relat\xF3rio Geral"), /* @__PURE__ */ React.createElement("div", { className: "flex bg-[var(--surface)] rounded-xl p-1 mb-6 gap-1 border border-[var(--border-soft)]" }, /* @__PURE__ */ React.createElement("button", { onClick: () => setAba("chamados"), className: `flex-1 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1 transition-all ${aba === "chamados" ? "bg-[var(--bg-elevated)] text-[var(--gold)] border border-[var(--border)]" : "text-[var(--text-faint)]"}` }, /* @__PURE__ */ React.createElement(AlertTriangle, { size: 14 }), " Chamados", totalAbertos > 0 && /* @__PURE__ */ React.createElement("span", { className: "bg-[var(--red)] text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center ml-1" }, totalAbertos)), /* @__PURE__ */ React.createElement("button", { onClick: () => setAba("docas"), className: `flex-1 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1 transition-all ${aba === "docas" ? "bg-[var(--bg-elevated)] text-[var(--gold)] border border-[var(--border)]" : "text-[var(--text-faint)]"}` }, /* @__PURE__ */ React.createElement(Box, { size: 14 }), " Docas"), /* @__PURE__ */ React.createElement("button", { onClick: () => setAba("historico"), className: `flex-1 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1 transition-all ${aba === "historico" ? "bg-[var(--bg-elevated)] text-[var(--gold)] border border-[var(--border)]" : "text-[var(--text-faint)]"}` }, /* @__PURE__ */ React.createElement(History, { size: 14 }), " Hist\xF3rico")), aba === "chamados" && /* @__PURE__ */ React.createElement("div", { className: "space-y-3" }, chamados.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-faint)] text-center py-4 italic text-sm" }, "Nenhum chamado registrado."), chamados.map((c) => {
     const b = badgeChamado(c.status);
-    const cor = c.status === "aberto" ? "border-red-400" : c.status === "atendendo" ? "border-amber-400" : "border-green-400";
-    return /* @__PURE__ */ React.createElement("div", { key: c.id, className: `bg-white p-4 rounded-xl shadow-sm border-l-4 ${cor}` }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-start mb-1 gap-2" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "font-bold text-gray-800" }, "Doca ", c.numeroDoca, " \u2022 ", c.motivo), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-gray-500" }, "Aberto por ", c.donoNome)), /* @__PURE__ */ React.createElement("span", { className: `text-xs font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${b.classe}` }, b.texto)), c.mensagem && /* @__PURE__ */ React.createElement("p", { className: "text-sm text-gray-600 mb-2" }, c.mensagem), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-gray-400 mb-2" }, formatarData(c.criadoEm), c.atendidoPor ? ` \u2022 Atendido por ${c.atendidoPor}` : ""), c.status === "aberto" && /* @__PURE__ */ React.createElement("button", { onClick: () => handleAtender(c), className: "w-full py-2 bg-amber-500 text-white rounded-lg font-bold text-sm hover:bg-amber-600" }, "Atender Chamado"), c.status === "atendendo" && /* @__PURE__ */ React.createElement("button", { onClick: () => handleResolver(c), className: "w-full py-2 bg-green-600 text-white rounded-lg font-bold text-sm hover:bg-green-700 flex items-center justify-center gap-2" }, /* @__PURE__ */ React.createElement(CheckCircle, { size: 16 }), " Marcar como Resolvido"));
-  })), aba === "docas" && /* @__PURE__ */ React.createElement("div", { className: "space-y-3" }, docas.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-gray-400 text-center py-4 italic" }, "Nenhuma doca cadastrada."), docas.map((d) => /* @__PURE__ */ React.createElement("div", { key: d.id, className: "bg-white p-4 rounded-xl shadow-sm border border-gray-200" }, /* @__PURE__ */ React.createElement("p", { className: "font-bold text-gray-800" }, "Doca ", d.numeroDoca), /* @__PURE__ */ React.createElement("p", { className: "text-sm text-gray-500" }, d.pacotes || 0, " pacotes \u2022 ", d.posicoes || 0, " posi\xE7\xF5es \u2022 Respons\xE1vel: ", d.donoNome), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-gray-400 mt-1" }, "Atualizado em ", formatarData(d.atualizadoEm))))), aba === "historico" && /* @__PURE__ */ React.createElement("div", { className: "space-y-2" }, alteracoes.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-gray-400 text-center py-4 italic" }, "Nenhuma altera\xE7\xE3o registrada."), alteracoes.map((a) => {
+    const corBorda = c.status === "aberto" ? "border-l-[var(--red)]" : c.status === "atendendo" ? "border-l-[var(--amber)]" : c.status === "cancelado" ? "border-l-[var(--border)]" : "border-l-[var(--green)]";
+    return /* @__PURE__ */ React.createElement("div", { key: c.id, className: `bg-[var(--surface)] p-4 rounded-xl shadow-sm border-l-4 ${corBorda} border-y border-r border-[var(--border-soft)]` }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-start mb-1 gap-2" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("button", { onClick: () => abrirDetalheDePorId(c.docaId), className: "font-semibold text-[var(--text)] text-left hover:underline" }, /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--gold-soft)]" }, "Doca ", c.numeroDoca), " \u2022 ", c.motivo), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-[var(--text-faint)]" }, "Aberto por ", c.donoNome)), /* @__PURE__ */ React.createElement("span", { className: `inline-flex items-center gap-1.5 text-xs font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${b.classe}` }, /* @__PURE__ */ React.createElement("span", { className: `w-1.5 h-1.5 rounded-full ${b.dot} ${c.status === "aberto" ? "emergency-pulse" : ""}` }), " ", b.texto)), c.mensagem && /* @__PURE__ */ React.createElement("p", { className: "text-sm text-[var(--text-muted)] mb-2" }, c.mensagem), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-[var(--text-faint)] mb-2" }, formatarData(c.criadoEm), c.atendidoPor ? ` \u2022 Atendido por ${c.atendidoPor}` : ""), c.status === "aberto" && /* @__PURE__ */ React.createElement("button", { onClick: () => handleAtender(c), className: "w-full py-2 bg-[var(--amber)] text-[#1A1404] rounded-lg font-bold text-sm hover:brightness-110" }, "Atender Chamado"), c.status === "atendendo" && /* @__PURE__ */ React.createElement("button", { onClick: () => handleResolver(c), className: "w-full py-2 bg-[var(--green)] text-[#08210F] rounded-lg font-bold text-sm hover:brightness-110 flex items-center justify-center gap-2" }, /* @__PURE__ */ React.createElement(CheckCircle, { size: 16 }), " Marcar como Resolvido"));
+  })), aba === "docas" && /* @__PURE__ */ React.createElement("div", { className: "space-y-3" }, !mostrarForm && /* @__PURE__ */ React.createElement("button", { onClick: abrirNovaDoca, className: "w-full py-3 bg-[var(--surface)] border border-dashed border-[var(--gold)]/40 text-[var(--gold)] rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-[var(--gold)]/5" }, /* @__PURE__ */ React.createElement(Plus, { size: 17 }), " Nova Doca"), mostrarForm && /* @__PURE__ */ React.createElement("div", { className: "bg-[var(--surface)] p-4 rounded-xl shadow-sm border border-[var(--gold)]/30" }, /* @__PURE__ */ React.createElement("h2", { className: "text-base font-display font-bold text-[var(--text)] mb-4 flex items-center gap-2" }, /* @__PURE__ */ React.createElement(Box, { size: 17, className: "text-[var(--gold)]" }), " ", editandoDocaId ? "Editar Doca" : "Cadastrar Nova Doca"), /* @__PURE__ */ React.createElement("div", { className: "mb-3" }, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-1 text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, /* @__PURE__ */ React.createElement(User, { size: 13, className: "text-[var(--gold)]/80" }), " Respons\xE1vel"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: "text",
+      className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-2 outline-none focus:border-[var(--gold)]",
+      placeholder: "Nome do operador respons\xE1vel",
+      value: responsavelForm,
+      onChange: (e) => setResponsavelForm(e.target.value)
+    }
+  )), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-2 gap-3 mb-4" }, CAMPOS_DOCA.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.campo }, /* @__PURE__ */ React.createElement("label", { className: "flex items-center gap-1 text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wide mb-1" }, /* @__PURE__ */ React.createElement(item.icon, { size: 13, className: "text-[var(--gold)]/80" }), " ", item.label), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: item.tipo,
+      className: "w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] rounded-lg p-2 outline-none focus:border-[var(--gold)]",
+      value: formDoca[item.campo],
+      onChange: (e) => setFormDoca({ ...formDoca, [item.campo]: e.target.value })
+    }
+  )))), /* @__PURE__ */ React.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ React.createElement("button", { onClick: handleSalvarDocaAdmin, className: "flex-grow py-3 bg-[var(--gold)] text-[#1A1404] rounded-lg font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all" }, /* @__PURE__ */ React.createElement(Save, { size: 19 }), " ", editandoDocaId ? "Atualizar Doca" : "Salvar Doca"), /* @__PURE__ */ React.createElement("button", { onClick: fecharFormDoca, className: "py-3 px-4 bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text-muted)] rounded-lg font-semibold hover:bg-[var(--border)] transition-all text-sm" }, "Cancelar"))), docas.length === 0 && !mostrarForm && /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-faint)] text-center py-4 italic text-sm" }, "Nenhuma doca cadastrada."), docas.map((d) => /* @__PURE__ */ React.createElement("div", { key: d.id, className: "bg-[var(--surface)] p-4 rounded-xl shadow-sm border border-[var(--border-soft)] flex justify-between items-start gap-2" }, /* @__PURE__ */ React.createElement("button", { onClick: () => setDocaDetalhe(d), className: "text-left flex-grow" }, /* @__PURE__ */ React.createElement("p", { className: "font-semibold text-[var(--text)]" }, /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--gold-soft)]" }, "Doca ", d.numeroDoca)), /* @__PURE__ */ React.createElement("p", { className: "text-sm text-[var(--text-faint)]" }, d.pacotes || 0, " pacotes \u2022 ", d.posicoes || 0, " posi\xE7\xF5es \u2022 Respons\xE1vel: ", d.donoNome), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-[var(--text-faint)] mt-1" }, "Atualizado em ", formatarData(d.atualizadoEm))), /* @__PURE__ */ React.createElement("div", { className: "flex gap-1 shrink-0" }, /* @__PURE__ */ React.createElement("button", { onClick: (e) => {
+    e.stopPropagation();
+    abrirEdicaoDoca(d);
+  }, className: "p-2 text-[var(--text-faint)] hover:text-[var(--gold)] hover:bg-white/5 rounded-lg", title: "Editar" }, /* @__PURE__ */ React.createElement(Pencil, { size: 16 })), /* @__PURE__ */ React.createElement("button", { onClick: (e) => {
+    e.stopPropagation();
+    handleDeleteClick(d);
+  }, className: "p-2 text-[var(--text-faint)] hover:bg-white/5 hover:text-[var(--red)] rounded-lg", title: "Excluir" }, /* @__PURE__ */ React.createElement(Trash2, { size: 16 })))))), aba === "historico" && /* @__PURE__ */ React.createElement("div", { className: "space-y-2" }, alteracoes.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "flex justify-end mb-1" }, /* @__PURE__ */ React.createElement("button", { onClick: () => setConfirmandoLimparHistorico(true), className: "text-xs font-semibold text-[var(--text-faint)] hover:text-[var(--red)] flex items-center gap-1.5" }, /* @__PURE__ */ React.createElement(Trash2, { size: 13 }), " Limpar hist\xF3rico")), alteracoes.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-faint)] text-center py-4 italic text-sm" }, "Nenhuma altera\xE7\xE3o registrada."), alteracoes.map((a) => {
     const ehAcaoAdmin = a.tipo === "chamado_atendido" || a.tipo === "chamado_resolvido";
-    return /* @__PURE__ */ React.createElement("div", { key: a.id, className: `bg-white p-3 rounded-lg shadow-sm border text-sm ${ehAcaoAdmin ? "border-amber-200 bg-amber-50/40" : "border-gray-200"}` }, /* @__PURE__ */ React.createElement("p", { className: "text-gray-700" }, /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, a.autorNome), ehAcaoAdmin && /* @__PURE__ */ React.createElement("span", { className: "ml-1 text-[10px] font-bold uppercase tracking-wide text-amber-600 bg-amber-100 px-1.5 py-0.5 rounded" }, "admin"), " ", a.tipo === "criacao" && /* @__PURE__ */ React.createElement(React.Fragment, null, "cadastrou a Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, a.numeroDoca)), a.tipo === "exclusao" && /* @__PURE__ */ React.createElement(React.Fragment, null, "excluiu a Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, a.numeroDoca)), a.tipo === "edicao" && /* @__PURE__ */ React.createElement(React.Fragment, null, "alterou ", /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, a.campo), " da Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, a.numeroDoca), ": ", a.valorAnterior, " \u2192 ", a.valorNovo), a.tipo === "chamado_atendido" && /* @__PURE__ */ React.createElement(React.Fragment, null, "passou a atender o chamado da Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, a.numeroDoca)), a.tipo === "chamado_resolvido" && /* @__PURE__ */ React.createElement(React.Fragment, null, "resolveu o chamado da Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, a.numeroDoca))), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-gray-400" }, formatarData(a.criadoEm)));
-  }))), showReportModal && /* @__PURE__ */ React.createElement(ReportModal, { titulo: "Relat\xF3rio Geral", conteudo: reportContent, onFechar: () => setShowReportModal(false) }));
+    const ehCancelamento = a.tipo === "chamado_cancelado";
+    return /* @__PURE__ */ React.createElement("div", { key: a.id, className: `bg-[var(--surface)] p-3 rounded-lg shadow-sm border text-sm flex items-start justify-between gap-2 ${ehAcaoAdmin ? "border-[var(--gold)]/20" : "border-[var(--border-soft)]"}` }, /* @__PURE__ */ React.createElement("div", { className: "flex-grow" }, /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-muted)]" }, /* @__PURE__ */ React.createElement("span", { className: "font-semibold text-[var(--text)]" }, a.autorNome), ehAcaoAdmin && /* @__PURE__ */ React.createElement("span", { className: "ml-1 text-[10px] font-bold uppercase tracking-wide text-[var(--gold)] border border-[var(--gold)]/30 px-1.5 py-0.5 rounded" }, "admin"), " ", a.tipo === "criacao" && /* @__PURE__ */ React.createElement(React.Fragment, null, "cadastrou a Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--text)]" }, a.numeroDoca)), a.tipo === "exclusao" && /* @__PURE__ */ React.createElement(React.Fragment, null, "excluiu a Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--text)]" }, a.numeroDoca)), a.tipo === "edicao" && /* @__PURE__ */ React.createElement(React.Fragment, null, "alterou ", /* @__PURE__ */ React.createElement("span", { className: "font-semibold text-[var(--text)]" }, a.campo), " da Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--text)]" }, a.numeroDoca), ": ", a.valorAnterior, " \u2192 ", a.valorNovo), a.tipo === "chamado_atendido" && /* @__PURE__ */ React.createElement(React.Fragment, null, "passou a atender o chamado da Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--text)]" }, a.numeroDoca)), a.tipo === "chamado_resolvido" && /* @__PURE__ */ React.createElement(React.Fragment, null, "resolveu o chamado da Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--text)]" }, a.numeroDoca)), ehCancelamento && /* @__PURE__ */ React.createElement(React.Fragment, null, "cancelou o chamado da Doca ", /* @__PURE__ */ React.createElement("span", { className: "font-data text-[var(--text)]" }, a.numeroDoca))), /* @__PURE__ */ React.createElement("p", { className: "text-xs text-[var(--text-faint)] mt-0.5" }, formatarData(a.criadoEm))), /* @__PURE__ */ React.createElement("button", { onClick: () => setAlteracaoParaApagar(a), className: "p-1.5 text-[var(--text-faint)] hover:text-[var(--red)] hover:bg-white/5 rounded-lg shrink-0", title: "Apagar do hist\xF3rico" }, /* @__PURE__ */ React.createElement(Trash2, { size: 14 })));
+  }))), showReportModal && /* @__PURE__ */ React.createElement(ReportModal, { titulo: "Relat\xF3rio Geral", conteudo: reportContent, onFechar: () => setShowReportModal(false) }), showDeleteModal && docaToDelete && /* @__PURE__ */ React.createElement(
+    ConfirmModal,
+    {
+      titulo: "Excluir Registro",
+      mensagem: `Tem certeza que deseja remover a Doca ${docaToDelete.numeroDoca}? Esta a\xE7\xE3o \xE9 permanente.`,
+      textoConfirmar: "Excluir",
+      onConfirmar: confirmDelete,
+      onCancelar: () => {
+        setShowDeleteModal(false);
+        setDocaToDelete(null);
+      }
+    }
+  ), alteracaoParaApagar && /* @__PURE__ */ React.createElement(
+    ConfirmModal,
+    {
+      titulo: "Apagar do Hist\xF3rico",
+      mensagem: "Esta entrada do hist\xF3rico de altera\xE7\xF5es ser\xE1 apagada permanentemente para todos os administradores.",
+      textoConfirmar: "Apagar",
+      onConfirmar: handleApagarAlteracao,
+      onCancelar: () => setAlteracaoParaApagar(null)
+    }
+  ), confirmandoLimparHistorico && /* @__PURE__ */ React.createElement(
+    ConfirmModal,
+    {
+      titulo: "Limpar Hist\xF3rico",
+      mensagem: `Isso vai apagar todas as ${alteracoes.length} entradas do hist\xF3rico de altera\xE7\xF5es, para todos os administradores. Esta a\xE7\xE3o n\xE3o pode ser desfeita.`,
+      textoConfirmar: "Limpar Tudo",
+      onConfirmar: handleLimparHistorico,
+      onCancelar: () => setConfirmandoLimparHistorico(false)
+    }
+  ), docaDetalhe && /* @__PURE__ */ React.createElement(
+    DocaDetailModal,
+    {
+      doca: docaDetalhe,
+      chamadoAtivo: chamados.find((c) => c.docaId === docaDetalhe.id && c.status !== "resolvido" && c.status !== "cancelado"),
+      ehAdmin: true,
+      onClose: () => setDocaDetalhe(null),
+      onEditar: () => abrirEdicaoDoca(docaDetalhe),
+      onExcluir: () => handleDeleteClick(docaDetalhe)
+    }
+  ));
 }
 function App() {
   const [user, setUser] = useState(null);
@@ -578,10 +910,10 @@ function App() {
     if (auth) auth.signOut();
   };
   if (!firebaseConfigured) {
-    return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen flex items-center justify-center bg-gray-50 p-6 text-center" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-md" }, /* @__PURE__ */ React.createElement(AlertTriangle, { className: "mx-auto text-amber-500 mb-4", size: 48 }), /* @__PURE__ */ React.createElement("h1", { className: "text-xl font-black text-gray-800 mb-2" }, "Firebase n\xE3o configurado"), /* @__PURE__ */ React.createElement("p", { className: "text-gray-500 text-sm" }, "Edite o objeto ", /* @__PURE__ */ React.createElement("code", { className: "bg-gray-100 px-1 rounded" }, "firebaseConfig"), " no in\xEDcio do c\xF3digo com as credenciais do seu projeto Firebase.")));
+    return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen flex items-center justify-center bg-[var(--bg)] p-6 text-center" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-md" }, /* @__PURE__ */ React.createElement(AlertTriangle, { className: "mx-auto text-[var(--amber)] mb-4", size: 48 }), /* @__PURE__ */ React.createElement("h1", { className: "text-xl font-display font-bold text-[var(--text)] mb-2" }, "Firebase n\xE3o configurado"), /* @__PURE__ */ React.createElement("p", { className: "text-[var(--text-muted)] text-sm" }, "Edite o objeto ", /* @__PURE__ */ React.createElement("code", { className: "bg-[var(--surface)] border border-[var(--border)] px-1 rounded text-[var(--gold-soft)]" }, "firebaseConfig"), " em js/firebase-config.js com as credenciais do seu projeto Firebase.")));
   }
   if (carregandoAuth || user && !profile) {
-    return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen flex items-center justify-center bg-gray-50" }, /* @__PURE__ */ React.createElement(Loader2, { size: 32, className: "animate-spin text-[#3483FA]" }));
+    return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen flex items-center justify-center bg-[var(--bg)]" }, /* @__PURE__ */ React.createElement(Loader2, { size: 32, className: "animate-spin text-[var(--gold)]" }));
   }
   if (!user) return /* @__PURE__ */ React.createElement(AuthScreen, null);
   return profile.role === "admin" ? /* @__PURE__ */ React.createElement(AdminPanel, { user, profile, onLogout: handleLogout }) : /* @__PURE__ */ React.createElement(UserPanel, { user, profile, onLogout: handleLogout });
