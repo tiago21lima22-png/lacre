@@ -1,5 +1,5 @@
 // ============================================================
-// Regras de segurança do Firestore — Painel de Despacho de Docas
+// Regras de segurança do Firestore — Painel Despacho de Docas
 //
 // Como aplicar:
 // 1. Console Firebase > Firestore Database > aba "Regras"
@@ -8,8 +8,12 @@
 //
 // O que elas garantem:
 // - Cada operador só lê/edita as próprias docas, chamados e alterações
-// - Administradores (role: "admin" em controleCarga_users) leem tudo
-// - Só administradores podem atualizar o status de um chamado
+// - Administradores (role: "admin" em controleCarga_users) leem e
+//   gerenciam tudo: docas de qualquer operador, todos os chamados,
+//   e o histórico de alterações completo
+// - Quem abriu um chamado pode cancelá-lo (status -> "cancelado"),
+//   mas só um admin pode marcá-lo como "atendendo" ou "resolvido"
+// - Só administradores podem apagar entradas do histórico
 // - Ninguém consegue se promover a admin sozinho pelo app
 // ============================================================
 
@@ -26,7 +30,9 @@ service cloud.firestore {
         get(/databases/$(database)/documents/controleCarga_users/$(request.auth.uid)).data.role == 'admin';
     }
 
-    // Perfis de usuário
+    // Perfis de usuário — só é criado para quem realmente se cadastrou
+    // e está logado (uid bate com o documento). O painel admin nunca
+    // cria documentos aqui ao cadastrar uma doca manualmente.
     match /controleCarga_users/{uid} {
       allow read: if logado() && (request.auth.uid == uid || ehAdmin());
       allow create: if logado() && request.auth.uid == uid && request.resource.data.role == 'user';
@@ -37,7 +43,8 @@ service cloud.firestore {
       allow update: if ehAdmin();
     }
 
-    // Docas cadastradas pelos operadores
+    // Docas — cadastradas por operadores OU por administradores
+    // (que podem criar/editar a doca de qualquer responsável)
     match /controleCarga_docas/{docaId} {
       allow read: if logado() && (resource.data.donoUid == request.auth.uid || ehAdmin());
       allow create: if logado() && request.resource.data.donoUid == request.auth.uid;
@@ -48,15 +55,22 @@ service cloud.firestore {
     match /controleCarga_chamados/{chamadoId} {
       allow read: if logado() && (resource.data.donoUid == request.auth.uid || ehAdmin());
       allow create: if logado() && request.resource.data.donoUid == request.auth.uid;
-      // Só admin pode mudar o status (atender/resolver)
+      // Admin pode mudar o status livremente (atender/resolver)
       allow update: if logado() && ehAdmin();
+      // Quem abriu o chamado pode cancelá-lo, desde que ainda não
+      // tenha sido resolvido nem cancelado antes
+      allow update: if logado() && resource.data.donoUid == request.auth.uid &&
+        resource.data.status != 'resolvido' && resource.data.status != 'cancelado' &&
+        request.resource.data.status == 'cancelado';
     }
 
     // Histórico de alterações (cadastros/edições/exclusões de doca
-    // feitas por operadores + atendimentos de chamado feitos por admins)
+    // feitas por operadores ou admins, e ações de chamado dos admins)
     match /controleCarga_alteracoes/{alteracaoId} {
       allow read: if logado() && (resource.data.autorUid == request.auth.uid || ehAdmin());
       allow create: if logado() && request.resource.data.autorUid == request.auth.uid;
+      // Só administradores podem apagar entradas do histórico
+      allow delete: if ehAdmin();
     }
   }
 }
