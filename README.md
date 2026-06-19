@@ -21,10 +21,14 @@ firestore.rules         regras de segurança para colar no Firebase
 
 ## O que o site faz
 
-**Login/Cadastro** — cada pessoa cria a própria conta (e-mail/senha via
-Firebase Auth). Toda conta nova nasce como operador comum. O documento de
-perfil só é criado no Firebase para quem realmente acabou de se cadastrar
-e está logado — nunca para terceiros.
+**Login/Cadastro** — cada pessoa cria a própria conta com **usuário e senha**
+(sem e-mail / sem login pelo Google). No cadastro pede-se o **nome** e um
+**usuário** (login); na tela de entrar pede-se apenas **usuário e senha**.
+Por baixo dos panos o Firebase Auth continua sendo usado: o usuário digitado
+vira automaticamente um e-mail interno (`usuario@despacho.local`), então não
+é preciso configurar mais nada além do Firebase. Toda conta nova nasce como
+operador comum. O documento de perfil só é criado no Firebase para quem
+realmente acabou de se cadastrar e está logado — nunca para terceiros.
 
 **Painel do operador**
 - Cadastra docas (número, posições, mangas, paletes, gaylord, pacotes) e só vê as próprias.
@@ -50,12 +54,17 @@ e está logado — nunca para terceiros.
 
 ## Passo 2 — Criar o primeiro administrador
 
-1. Abra o site (local ou já publicado) e cadastre sua própria conta normalmente, pela tela de login.
-2. No Firebase, vá em **Firestore Database > Dados** > coleção `controleCarga_users` > clique no documento com o seu UID.
+1. Abra o site (local ou já publicado) e cadastre sua própria conta normalmente, pela tela de login (informe nome, usuário e senha).
+2. No Firebase, vá em **Firestore Database > Dados** > coleção `controleCarga_users` > localize o documento cujo campo `usuario` é o seu login (ou abra o documento com o seu UID).
 3. Troque o campo `role` de `"user"` para `"admin"` e salve.
 4. Recarregue o site logado — você vai cair direto no Painel Administrativo.
 
 Repita o passo 3 para qualquer outra pessoa que deva ser administradora.
+
+> Observação: o Firebase serve apenas para criar e guardar os logins. Em
+> **Authentication > Users** cada conta aparece como um e-mail interno
+> `usuario@despacho.local` — isso é normal, é só como o usuário é guardado
+> por dentro. Você continua entrando no site apenas com usuário e senha.
 
 ## Passo 3 — Testar localmente (opcional)
 
